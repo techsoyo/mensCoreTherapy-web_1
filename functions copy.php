@@ -1,9 +1,29 @@
 <?php
-// =====================================================
-//  Registrar tipos de post personalizados
-// =====================================================
+// Registrar tipos de post personalizados
 function registrar_tipos_post_personalizados()
 {
+    // Registro del tipo de post 'servicio'
+    register_post_type('servicio', array(
+        'labels' => array(
+            'name' => 'Servicios',
+            'singular_name' => 'Servicio',
+            'add_new' => 'Añadir Nuevo',
+            'add_new_item' => 'Añadir Nuevo Servicio',
+            'edit_item' => 'Editar Servicio',
+            'new_item' => 'Nuevo Servicio',
+            'view_item' => 'Ver Servicio',
+            'search_items' => 'Buscar Servicios',
+            'not_found' => 'No se encontraron servicios',
+            'not_found_in_trash' => 'No se encontraron servicios en la papelera'
+        ),
+        'public' => true,
+        'has_archive' => true,
+        'supports' => array('title', 'editor', 'excerpt', 'thumbnail'),
+        'menu_icon' => 'dashicons-admin-tools',
+        'rewrite' => array('slug' => 'ns-servicios'),
+        'show_in_rest' => true
+    ));
+
     // Registro del tipo de post 'producto'
     register_post_type('producto', array(
         'labels' => array(
@@ -28,9 +48,7 @@ function registrar_tipos_post_personalizados()
 }
 add_action('init', 'registrar_tipos_post_personalizados');
 
-// =====================================================
-//  Configuración del tema (menús, thumbnails, etc.)
-// =====================================================
+// Soporte para menús
 function theme_setup()
 {
     add_theme_support('menus');
@@ -44,43 +62,77 @@ function theme_setup()
 }
 add_action('after_setup_theme', 'theme_setup');
 
-// =====================================================
-//  Enqueue scripts y estilos globales
-// =====================================================
+// Enqueue scripts y estilos
 function theme_scripts()
 {
-    // Estilos globales
     wp_enqueue_style('theme-style', get_stylesheet_uri());
     wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
     wp_enqueue_style('main-css', get_template_directory_uri() . '/assets/css/_main.css');
+    wp_enqueue_style('servicios-css', get_template_directory_uri() . '/assets/css/servicios.css');
     wp_enqueue_style('contactos-css', get_template_directory_uri() . '/assets/css/contactos.css');
     wp_enqueue_style('reservas-css', get_template_directory_uri() . '/assets/css/reservas.css');
-
-    // Script global principal
     wp_enqueue_script('theme-script', get_template_directory_uri() . '/js/main.js', array('jquery'), '1.0.0', true);
-
-    // JS para página de productos
-    if (is_page('productos')) {
-        wp_enqueue_script('productos-script', get_template_directory_uri() . '/js/servicios.js', array('jquery'), '1.0.0', true);
-    }
 }
 add_action('wp_enqueue_scripts', 'theme_scripts');
 
-// =====================================================
-//  Encolar estilos y scripts específicos para la página "Masajes"
-// =====================================================
-function enqueue_masajes_assets()
+// Agregar campos personalizados para servicios
+function agregar_meta_boxes_servicio()
 {
-    if (is_page('masajes')) { // Se ejecuta solo en la página "Masajes"
-        wp_enqueue_style('masajes-css', get_template_directory_uri() . '/assets/css/masajes.css');
-        wp_enqueue_script('masajes-js', get_template_directory_uri() . '/js/masajes.js', array('jquery'), '1.0.0', true);
+    add_meta_box(
+        'servicio_detalles',
+        'Detalles del Servicio',
+        'mostrar_meta_box_servicio',
+        'servicio',
+        'normal',
+        'high'
+    );
+}
+add_action('add_meta_boxes', 'agregar_meta_boxes_servicio');
+
+function mostrar_meta_box_servicio($post)
+{
+    wp_nonce_field('guardar_servicio_meta', 'servicio_meta_nonce');
+
+    $precio = get_post_meta($post->ID, '_servicio_precio', true);
+    $duracion = get_post_meta($post->ID, '_servicio_duracion', true);
+
+    echo '<table class="form-table">';
+    echo '<tr>';
+    echo '<th><label for="servicio_precio">Precio:</label></th>';
+    echo '<td><input type="text" id="servicio_precio" name="servicio_precio" value="' . esc_attr($precio) . '" /></td>';
+    echo '</tr>';
+    echo '<tr>';
+    echo '<th><label for="servicio_duracion">Duración:</label></th>';
+    echo '<td><input type="text" id="servicio_duracion" name="servicio_duracion" value="' . esc_attr($duracion) . '" /></td>';
+    echo '</tr>';
+    echo '</table>';
+}
+
+function guardar_servicio_meta($post_id)
+{
+    if (!isset($_POST['servicio_meta_nonce']) || !wp_verify_nonce($_POST['servicio_meta_nonce'], 'guardar_servicio_meta')) {
+        return;
+    }
+
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        return;
+    }
+
+    if (!current_user_can('edit_post', $post_id)) {
+        return;
+    }
+
+    if (isset($_POST['servicio_precio'])) {
+        update_post_meta($post_id, '_servicio_precio', sanitize_text_field($_POST['servicio_precio']));
+    }
+
+    if (isset($_POST['servicio_duracion'])) {
+        update_post_meta($post_id, '_servicio_duracion', sanitize_text_field($_POST['servicio_duracion']));
     }
 }
-add_action('wp_enqueue_scripts', 'enqueue_masajes_assets');
+add_action('save_post', 'guardar_servicio_meta');
 
-// =====================================================
-//  Campos personalizados para productos
-// =====================================================
+// Agregar campos personalizados para productos
 function agregar_meta_boxes_producto()
 {
     add_meta_box(
@@ -146,9 +198,7 @@ function guardar_producto_meta($post_id)
 }
 add_action('save_post', 'guardar_producto_meta');
 
-// =====================================================
-//  Flush rewrite rules al activar el tema
-// =====================================================
+// Flush rewrite rules al activar el tema
 function flush_rewrite_rules_on_activation()
 {
     registrar_tipos_post_personalizados();
