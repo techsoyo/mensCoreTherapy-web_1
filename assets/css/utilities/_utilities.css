@@ -1,0 +1,99 @@
+/* Utility classes - helpers */
+
+/* ===== GRID SYSTEM ===== */
+.grid {
+  display: grid;
+}
+
+.grid--3-cols {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid--2-cols {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.gap-lg {
+  gap: 2rem;
+}
+
+.gap-md {
+  gap: 1rem;
+}
+
+.gap-sm {
+  gap: 0.5rem;
+}
+
+.gap-xs {
+  gap: 0.25rem;
+}
+
+.align-center {
+  align-items: center;
+}
+
+/* ===== FLEXBOX ===== */
+.flex {
+  display: flex;
+}
+
+.flex--center {
+  justify-content: center;
+  align-items: center;
+}
+
+.flex--between {
+  justify-content: space-between;
+}
+
+.flex--start {
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+/* ===== TEXT UTILITIES ===== */
+.text-center {
+  text-align: center;
+}
+
+.text-white {
+  color: white;
+}
+
+.text-primary {
+  color: var(--neo-primary);
+}
+
+.text-sm {
+  font-size: 0.875rem;
+}
+
+.text-xs {
+  font-size: 0.75rem;
+}
+
+/* ===== SPACING ===== */
+.mb-sm {
+  margin-bottom: 0.5rem;
+}
+
+.mb-xs {
+  margin-bottom: 0.25rem;
+}
+
+.py-sm {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.mr-xs {
+  margin-right: 0.25rem;
+}
+
+/* ===== CONTAINER ===== */
+.container {
+  max-width: 75rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}

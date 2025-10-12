@@ -1,0 +1,13 @@
+/* Main CSS file - ITCSS structure */
+
+/* Base */
+@import url('base/_base.css');
+
+/* Components */
+@import url('components/_components.css');
+
+/* Pages */
+@import url('pages/_pages.css');
+
+/* Utilities */
+@import url('utilities/_utilities.css');

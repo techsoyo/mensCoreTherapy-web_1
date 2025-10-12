@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test - Menscore Therapy Navigation</title>
+  <style>
+    /* Simulando el CSS del header */
+    .site-header {
+      background-color: #F5E6DD;
+      border-bottom: 1px solid #E8D5C4;
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .site-title {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .site-title a {
+      color: #B8380F;
+      text-decoration: none;
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      gap: 2rem;
+    }
+
+    .nav-link {
+      color: #1A0600;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+
+    .nav-link:hover {
+      background-color: #B8380F;
+      color: white;
+    }
+
+    .site-main {
+      min-height: 500px;
+      padding: 2rem 0;
+    }
+
+    .test-content {
+      background: #f9f9f9;
+      padding: 2rem;
+      margin: 2rem auto;
+      max-width: 800px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container">
+      <div class="site-branding">
+        <h1 class="site-title">
+          <a href="/">Menscore Therapy</a>
+        </h1>
+      </div>
+
+      <nav class="main-navigation">
+        <ul class="nav-menu">
+          <li><a href="/" class="nav-link">Inicio</a></li>
+          <li><a href="/servicios/" class="nav-link">Servicios</a></li>
+          <li><a href="/productos/" class="nav-link">Productos</a></li>
+          <li><a href="/reservas/" class="nav-link">Reservas</a></li>
+          <li><a href="/contactos/" class="nav-link">contactos</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="site-main">
+    <div class="test-content">
+      <h2>TEST: Estructura de Navegación WordPress</h2>
+      <p><strong>Esta es una simulación de cómo debería verse el header.</strong></p>
+
+      <h3>Comportamiento esperado:</h3>
+      <ul>
+        <li><strong>Inicio (/):</strong> Carga front-page.php → template-parts/home.php</li>
+        <li><strong>Servicios (/servicios/):</strong> Carga page.php → template-parts/servicios.php</li>
+        <li><strong>Productos (/productos/):</strong> Carga page.php → template-parts/nuestros-productos.php</li>
+        <li><strong>Reservas (/reservas/):</strong> Carga page.php → template-parts/reservas.php</li>
+        <li><strong>contactos (/contactos/):</strong> Carga page.php → template-parts/contactos.php</li>
+      </ul>
+
+      <h3>Problema reportado:</h3>
+      <p>El usuario dice que cuando va a /servicios/, también se muestra la home page encima, en lugar de mostrar solo
+        el contenido de servicios.</p>
+
+      <h3>Verificaciones necesarias:</h3>
+      <ol>
+        <li>¿Las páginas están creadas en wp-admin con los slugs correctos?</li>
+        <li>¿El page.php está funcionando correctamente?</li>
+        <li>¿Los template-parts existen y tienen el contenido correcto?</li>
+        <li>¿El header.php tiene los enlaces correctos?</li>
+      </ol>
+    </div>
+  </main>
+</body>
+
+</html>

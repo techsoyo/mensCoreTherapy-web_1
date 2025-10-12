@@ -1,0 +1,7 @@
+/* Page-specific styles */
+
+/* Home page */
+@import url('_home.css');
+
+/* Servicios page */
+@import url('_servicios.css');
