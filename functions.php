@@ -53,7 +53,7 @@ function theme_scripts()
     wp_enqueue_style('theme-style', get_stylesheet_uri());
     wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
     wp_enqueue_style('main-css', get_template_directory_uri() . '/assets/css/_main.css');
-    wp_enqueue_style('contactos-css', get_template_directory_uri() . '/assets/css/contactos.css');
+    wp_enqueue_style('contacto-css', get_template_directory_uri() . '/assets/css/contacto.css');
     wp_enqueue_style('reservas-css', get_template_directory_uri() . '/assets/css/reservas.css');
 
     // Script global principal

@@ -38,15 +38,6 @@
                     </div>
                 </div>
 
-                <div class="contactos-item">
-                    <div class="contactos-item__icon">
-                        <i class="fa fa-map-marker-alt"></i>
-                    </div>
-                    <div class="contactos-item__content">
-                        <h4>Dirección</h4>
-                        <p>Calle Bienestar 123<br>28001 Madrid, España</p>
-                    </div>
-                </div>
 
                 <div class="contactos-item">
                     <div class="contactos-item__icon">
