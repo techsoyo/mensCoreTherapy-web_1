@@ -23,7 +23,7 @@
                         <i class="fa fa-calendar-check"></i>
                     </div>
                     <div class="info-card__content">
-                        <h4>Disponibilidad</h4>
+                        <h5>Disponibilidad</h5>
                         <p>Lunes a Viernes: 9:00 - 21:00<br>Sábados: 10:00 - 18:00</p>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                         <i class="fa fa-clock"></i>
                     </div>
                     <div class="info-card__content">
-                        <h4>Confirmación</h4>
+                        <h5>Confirmación</h5>
                         <p>Te confirmaremos tu cita en menos de 2 horas</p>
                     </div>
                 </div>
@@ -43,7 +43,7 @@
                         <i class="fa fa-shield-alt"></i>
                     </div>
                     <div class="info-card__content">
-                        <h4>Política de Cancelación</h4>
+                        <h5>Política de Cancelación</h5>
                         <p>Cancela hasta 24h antes sin costo</p>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                         <i class="fa fa-credit-card"></i>
                     </div>
                     <div class="info-card__content">
-                        <h4>Formas de Pago</h4>
+                        <h5>Formas de Pago</h5>
                         <p>Efectivo, tarjeta o transferencia</p>
                     </div>
                 </div>

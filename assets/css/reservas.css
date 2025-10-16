@@ -21,7 +21,7 @@
 }
 
 .reservas-info__title {
-  font-size: 1.5rem;
+  font-size: 1rem;
   color: white;
   margin-bottom: 2rem;
   text-align: center;
@@ -51,10 +51,10 @@
 
 .info-card__icon i {
   color: white;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
-.info-card__content h4 {
+.info-card__content h5 {
   color: white;
   margin-bottom: 0.5rem;
   font-size: 1.1rem;
@@ -64,19 +64,21 @@
   color: rgba(255, 255, 255, 0.8);
   margin: 0;
   line-height: 1.4;
-  font-size: 0.9rem;
+  font-size: 0.7rem;
 }
 
 .reservas-form {
-  background: white;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
   padding: 2rem;
   border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
 .reservas-form__title {
   font-size: 1.5rem;
-  color: #2c3e50;
+  color: white;
   margin-bottom: 2rem;
   text-align: center;
 }
@@ -94,7 +96,7 @@
 .form-group label {
   display: block;
   margin-bottom: 0.5rem;
-  color: #2c3e50;
+  color: white;
   font-weight: 500;
 }
 
