@@ -7,7 +7,7 @@
 ?>
 
 <section class="contactos-section">
-    <div class="container">
+    <div class="contactos-container">
         <header class="contactos-header mb-xl text-center">
             <h2 class="section-title text-primary mb-md">contactos</h2>
             <p class="section-subtitle text-body">Estamos aquí para ayudarte. Contáctanos para cualquier consulta</p>

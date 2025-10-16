@@ -22,11 +22,6 @@
         <!-- Overlay decorativo -->
         <div class="header__overlay" aria-hidden="true"></div>
 
-        <!-- Skip link (accesibilidad) -->
-        <a class="skip-link" href="#main" tabindex="1">
-            <?php esc_html_e('Saltar al contenido principal', 'menscoretherapy'); ?>
-        </a>
-
         <!-- Contenedor del header -->
         <div class="container">
             <div class="header__inner flex flex--between flex--center">
@@ -68,7 +63,7 @@
                         echo '<li class="nav__item"><a href="' . esc_url(home_url('/productos/')) . '" class="nav__link">Productos</a></li>';
                         echo '<li class="nav__item"><a href="' . esc_url(home_url('/masajes/')) . '" class="nav__link">Masajes</a></li>';
                         echo '<li class="nav__item"><a href="' . esc_url(home_url('/reservas/')) . '" class="nav__link">Reservas</a></li>';
-                        echo '<li class="nav__item"><a href="' . esc_url(home_url('/contactos/')) . '" class="nav__link">Contactos</a></li>';
+                        echo '<li class="nav__item"><a href="' . esc_url(home_url('/contacto/')) . '" class="nav__link">Contacto</a></li>';
                         echo '</ul>';
                     }
                     ?>

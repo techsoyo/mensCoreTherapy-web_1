@@ -7,7 +7,7 @@
 ?>
 
 <section class="reservas-section">
-    <div class="container">
+    <div class="reservas-container">
         <header class="reservas-header mb-xl text-center">
             <h2 class="section-title text-primary mb-md">Reservar Cita</h2>
             <p class="section-subtitle text-body">Agenda tu sesión de bienestar de forma fácil y rápida</p>

@@ -2,6 +2,6 @@
 
 /* Home page */
 @import url('_home.css');
+@import url('_home-banner.css');
 
-/* Servicios page */
-@import url('_servicios.css');
+@import url('_masajes.css');

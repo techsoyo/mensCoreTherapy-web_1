@@ -26,7 +26,7 @@ get_header(); ?>
         $template_map = array(
             'inicio'     => 'home',
             'productos'  => 'nuestros-productos',
-            'contactos'  => 'contactos',
+            'contacto'  => 'contacto',
             'reservas'   => 'reservas',
             'masajes'    => 'masajes' // añadido para tu nueva página
         );

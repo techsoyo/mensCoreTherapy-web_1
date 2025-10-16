@@ -72,7 +72,7 @@ add_action('wp_enqueue_scripts', 'theme_scripts');
 function enqueue_masajes_assets()
 {
     if (is_page('masajes')) { // Se ejecuta solo en la página "Masajes"
-        wp_enqueue_style('masajes-css', get_template_directory_uri() . '/assets/css/masajes.css');
+        wp_enqueue_style('masajes-css', get_template_directory_uri() . '/assets/css/pages/_masajes.css');
         wp_enqueue_script('masajes-js', get_template_directory_uri() . '/js/masajes.js', array('jquery'), '1.0.0', true);
     }
 }

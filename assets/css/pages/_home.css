@@ -1,7 +1,7 @@
 /* ===== NEW DYNAMIC HOME PAGE STYLES ===== */
 
 /* Main banner section - replaces hero */
-.mm-home-banner {
+.mm-home-Nobanner {
   position: relative;
   min-height: 70vh;
   display: flex;
@@ -15,14 +15,14 @@
   padding: 2rem 1rem;
 }
 
-.mm-home-banner__overlay {
+.mm-home-Nobanner__overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(180deg, rgba(0, 0, 0, .45), rgba(0, 0, 0, .35) 40%, rgba(0, 0, 0, .25));
   z-index: 1;
 }
 
-.mm-home-banner__content {
+.mm-home-Nobanner__content {
   position: relative;
   z-index: 2;
   text-align: center;
@@ -31,7 +31,7 @@
   margin: 0 auto;
 }
 
-.mm-home-banner__title {
+.mm-home-Nobanner__title {
   font-family: var(--font-primary);
   font-weight: var(--font-weight-thin);
   font-size: clamp(2rem, 5vw, 3rem);
@@ -42,7 +42,7 @@
   color: #fff !important;
 }
 
-.mm-home-banner__subtitle {
+.mm-home-Nobanner__subtitle {
   font-family: var(--font-primary);
   font-weight: var(--font-weight-thin);
   font-style: italic;
@@ -53,7 +53,7 @@
   opacity: 0.9;
 }
 
-.mm-home-banner__description {
+.mm-home-Nobanner__description {
   font-size: clamp(0.9rem, 2vw, 1.125rem);
   margin: 0 0 2rem;
   opacity: 0.85;
@@ -61,7 +61,7 @@
   color: #fff !important;
 }
 
-.mm-home-banner__cta {
+.mm-home-Nobanner__cta {
   display: flex;
   gap: 1rem;
   justify-content: center;
@@ -70,14 +70,14 @@
   flex-wrap: wrap;
 }
 
-.mm-home-banner__info {
+.mm-home-Nobanner__info {
   font-size: 0.875rem;
   opacity: 0.8;
   text-shadow: 0.0625rem 0.0625rem 0.125rem rgba(0, 0, 0, 0.5);
   color: #fff !important;
 }
 
-.mm-home-banner__info .sep {
+.mm-home-Nobanner__info .sep {
   margin: 0 0.5rem;
   opacity: 0.6;
 }
@@ -289,7 +289,7 @@
 
 /* Responsive adjustments */
 @media (max-width: 48em) {
-  .mm-home-banner {
+  .mm-home-Nobanner {
     min-height: 60vh;
     padding: 1.5rem 1rem;
   }
@@ -318,12 +318,12 @@
 }
 
 @media (max-width: 30em) {
-  .mm-home-banner {
+  .mm-home-Nobanner {
     min-height: 50vh;
     padding: 1rem;
   }
 
-  .mm-home-banner__cta {
+  .mm-home-Nobanner__cta {
     flex-direction: column;
     gap: 0.75rem;
   }

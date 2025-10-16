@@ -1,0 +1,39 @@
+
+Selector	Atributos CSS	Significado
+.header	position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background-size: cover; background-position: center; background-repeat: no-repeat;	Hace el header fijo en la parte superior de la pantalla, cubriendo todo el ancho, con imagen de fondo escalada. Afecta la navegación global y evita que el contenido lo tape.
+.header--fixed	position: fixed;	Refuerza la posición fija (similar a .header).
+.header--transparent	background-color: rgba(0, 0, 0, 0.5);	Agrega un fondo semitransparente negro para contraste sobre la imagen. Mejora legibilidad del texto.
+.header__overlay	position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.3);	Crea una capa oscura sobre la imagen de fondo para mejorar contraste. Afecta la visibilidad del contenido.
+.header__inner	position: relative; z-index: 10; display: flex; justify-content: space-between; align-items: center; 	Layout interno con flexbox: logo a la izquierda, nav a la derecha. Define el espaciado vertical (altura efectiva ~altura del contenido + padding).
+.header__logo	flex-shrink: 0;	Evita que el logo se encoja en pantallas pequeñas. Mantiene proporción.
+.logo-img	max-height: 80px; width: auto;	Limita la altura del logo a 80px, manteniendo aspecto. Afecta el tamaño visual del header.
+.header__nav	flex-grow: 1; display: flex; justify-content: flex-end;	Hace que la nav ocupe espacio disponible y se alinee a la derecha.
+.nav__list	display: flex; list-style: none; margin: 0; padding: 0; gap: 2rem;	Convierte la lista en menú horizontal sin bullets, con espaciado. Elimina bullets y hace responsive.
+.nav__link	color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 4px; transition: background-color 0.3s ease;	Estilo de enlaces: blanco, padding para área clickable, hover con fondo. Mejora UX y accesibilidad.
+.header__toggle	display: none; background: none; border: none; cursor: pointer; padding: 0.5rem;	Botón hamburguesa oculto por defecto. Para móviles.
+.hamburger	display: block; width: 24px; height: 18px; position: relative;	Estilo del ícono hamburguesa (3 líneas).
+.skip-link	position: absolute; top: -40px; left: 6px; background: #000; color: #fff; padding: 8px; text-decoration: none; z-index: 10000;	Enlace de accesibilidad para saltar al contenido. Visible solo al foco.
+@media (max-width: 768px) para .header__toggle	display: block;	Muestra el botón hamburguesa en móviles.
+@media (max-width: 768px) para .nav__list	display: none;	Oculta el menú en móviles (se activa con JS).
+Configuraciones CSS del Footer
+El footer usa estilos ITCSS definidos en _components.css. No hay altura fija; se ajusta al contenido con padding. Los estilos afectan el layout con bg image, overlay, grid de 3 columnas, y responsividad.
+Selector	Atributos CSS	Significado
+.footer	position: relative; margin-top: auto; color: white;	Posición relativa, color blanco para texto. margin-top: auto lo empuja al final de la página.
+.footer__bg	position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; background-repeat: no-repeat;	Aplica imagen de fondo escalada. Cubre todo el footer.
+.footer__overlay	position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7);	Capa oscura sobre la imagen para contraste. Afecta legibilidad.
+.footer__content	position: relative; z-index: 10; padding: 3rem 0;	Contenido encima del overlay. Padding define altura vertical (~altura del contenido + 3rem arriba/abajo).
+.footer__inner	display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; align-items: center;	Grid de 3 columnas (logo, acciones, contacto). Afecta layout horizontal.
+.footer__logo	text-align: center;	Centra el logo en su columna.
+.footer__logo-img	max-width: 100px; height: auto;	Limita ancho del logo a 100px. Mantiene proporción.
+.footer__actions	text-align: center;	Centra botones en su columna.
+.footer__section-title	margin: 0 0 1rem 0; font-size: 1.25rem; font-weight: 600;	Estilo de títulos (h4). Espaciado inferior.
+.footer__buttons	display: flex; justify-content: center; gap: 1rem;	Flex para botones centrados con gap.
+.btn--neo	background-color: rgba(255, 255, 255, 0.1); border: 2px solid white; color: white; padding: 0.5rem 1rem; border-radius: 4px; text-decoration: none; transition: all 0.3s ease;	Estilo de botones: semitransparentes, hover blanco.
+.footer__contact	text-align: left;	Alinea contacto a la izquierda.
+.footer__contact-grid	display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;	Subgrid para info de contacto (2 columnas).
+.footer__contact-item	display: flex; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.5rem;	Flex para íconos y texto. Espaciado.
+.footer__copyright	background-color: rgba(0, 0, 0, 0.8); padding: 1rem 0; margin-top: 2rem;	Fondo oscuro para copyright. Separación visual.
+@media (max-width: 768px) para .footer__inner	grid-template-columns: 1fr; gap: 2rem;	Una columna en móviles.
+@media (max-width: 768px) para .footer__contact	text-align: center;	Centra contacto en móviles.
+@media (max-width: 768px) para .footer__buttons	flex-direction: column; align-items: center;	Botones en columna en móviles.
+

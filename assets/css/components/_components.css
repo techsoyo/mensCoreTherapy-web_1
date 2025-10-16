@@ -10,7 +10,7 @@
   z-index: 100;
 }
 
-.site-header .container {
+.site-header .header-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -35,20 +35,7 @@
   gap: 2rem;
 }
 
-.nav-link {
-  color: var(--neo-text);
-  text-decoration: none;
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-.nav-link:hover,
-.nav-link.active {
-  background-color: var(--neo-primary);
-  color: white;
-}
+/* Estilos de navegación unificados usando BEM */
 
 /* ===== DYNAMIC CONTENT SYSTEM ===== */
 .dynamic-content {
@@ -137,7 +124,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
- 
+
   /* Padding reducido 10% (era 0.5rem) */
 }
 
@@ -180,19 +167,22 @@
 
 .nav__item {
   margin: 0;
+
 }
 
 .nav__link {
   color: white;
   text-decoration: none;
-  padding: 0.5rem 0.5rem;
-  /* Padding reducido 10% (era 0.5rem) */
+  padding: 0.5rem 1rem;
   border-radius: 0.25rem;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
-.nav__link:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+.nav__link:hover,
+.nav__link--active {
+  background-color: var(--neo-primary);
+  color: white;
 }
 
 .header__toggle {
@@ -236,23 +226,6 @@
   bottom: 0;
 }
 
-.skip-link {
-  position: absolute;
-  top: -2.25rem;
-  /* Ajustado 10% (era -2.5rem) */
-  left: 0.375rem;
-  background: #000;
-  color: #fff;
-  padding: 0.45rem;
-  /* Padding reducido 10% (era 0.5rem) */
-  text-decoration: none;
-  z-index: 20;
-}
-
-.skip-link:focus {
-  top: 0.3375rem;
-  /* Ajustado 10% (era 0.375rem) */
-}
 
 /* Mobile styles */
 @media (max-width: 48em) {
@@ -262,7 +235,9 @@
 
   .nav__list {
     display: none;
+
   }
+
 }
 
 /* ===== ITCSS FOOTER STYLES - PUNTO 1: FOOTER FIJO CON MISMA ALTURA QUE HEADER ===== */
@@ -276,6 +251,12 @@
   z-index: 10;
   color: white;
   font-size: 0.6rem !important;
+  transition: transform 0.3s ease;
+}
+
+/* Footer animation states */
+.footer--hidden {
+  transform: translateY(100%);
 }
 
 .footer__bg {
@@ -417,13 +398,13 @@
 .site-main,
 #main,
 main {
-  margin-top: 4.5rem;
-  /* Espacio para el header fijo */
-  margin-bottom: 4.5rem;
-  /* Espacio para el footer fijo */
+  /* margin-top: 4.5rem;
+   Espacio para el header fijo */
+  /*margin-bottom: 4.5rem;
+ Espacio para el footer fijo */
   min-height: calc(100vh - 9rem);
   /* Altura mínima: viewport - header - footer */
-  padding: 1rem 0;
+
 }
 
 /* Mobile styles for footer */
@@ -459,4 +440,64 @@ main {
     margin-bottom: 5rem;
     /* Más espacio en móvil para footer variable */
   }
+}
+
+/* ===== HEADER CONTAINER ===== */
+.header-container {
+  max-width: 75rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* ===== HOME CONTAINER ===== */
+.home-container {
+  max-width: 75rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+  position: relative;
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #000;
+}
+
+/* ===== CONTACTOS CONTAINER ===== */
+.contactos-container {
+  max-width: 85rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* ===== MASAGES CONTAINER ===== */
+.masajes-container {
+  max-width: 85rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+
+
+}
+
+/* ===== PRODUCTOS CONTAINER ===== */
+.productos-container {
+  max-width: 75rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* ===== RESERVAS CONTAINER ===== */
+.reservas-container {
+  max-width: 75rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* ===== FOOTER CONTAINER ===== */
+.footer-container {
+  max-width: 75rem;
+  margin: 0 auto;
+  padding: 0 1rem;
 }

@@ -8,7 +8,7 @@ $productos_query = new WP_Query(array(
 ?>
 
 <section class="productos-section">
-    <div class="container">
+    <div class="productos-container">
         <div class="section-header">
             <h2>Nuestros Productos</h2>
             <p>Productos premium para complementar tu experiencia de bienestar</p>
@@ -73,7 +73,7 @@ $productos_query = new WP_Query(array(
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     }
 
-    .container {
+    .productos-container {
         max-width: 1200px;
         margin: 0 auto;
         padding: 0 1rem;

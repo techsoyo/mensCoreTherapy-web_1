@@ -23,6 +23,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // ===== HEADER STICKY MEJORADO =====
     initStickyHeader();
+    
+    // ===== FOOTER STICKY CON COMPORTAMIENTO OPUESTO =====
+    initStickyFooter();
 });
 
 // ===== NAVEGACIÓN MÓVIL =====
@@ -88,7 +91,7 @@ function initScrollAnimations() {
     
     // Elementos a animar
     const animateElements = document.querySelectorAll(
-        '.mm-home-service-card, .mm-home-product-card, .footer__content, .mm-home-banner__content'
+        '.mm-home-service-card, .mm-home-product-card, .footer__content, .mm-home-Nobanner__content'
     );
     
     animateElements.forEach(el => {
@@ -191,6 +194,39 @@ function initStickyHeader() {
     function requestTick() {
         if (!ticking) {
             requestAnimationFrame(updateHeader);
+            ticking = true;
+        }
+    }
+    
+    window.addEventListener('scroll', requestTick);
+}
+
+// ===== FOOTER STICKY CON COMPORTAMIENTO OPUESTO =====
+function initStickyFooter() {
+    const footer = document.querySelector('.footer');
+    if (!footer) return;
+    
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+    
+    function updateFooter() {
+        const scrollY = window.scrollY;
+        
+        // Comportamiento opuesto al header:
+        // Ocultar footer al scroll hacia arriba, mostrar al scroll hacia abajo
+        if (scrollY < lastScrollY && scrollY > 200) {
+            footer.classList.add('footer--hidden');
+        } else if (scrollY > lastScrollY) {
+            footer.classList.remove('footer--hidden');
+        }
+        
+        lastScrollY = scrollY;
+        ticking = false;
+    }
+    
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(updateFooter);
             ticking = true;
         }
     }

@@ -5,7 +5,7 @@
 
     <!-- Contenido principal del footer -->
     <div class="footer__content">
-        <div class="container">
+        <div class="footer-container">
             <div class="footer__inner grid grid--3-cols gap-lg align-center">
 
                 <!-- Columna 1: Logo -->
@@ -77,7 +77,7 @@
 
     <!-- Copyright -->
     <div class="footer__copyright">
-        <div class="container">
+        <div class="footer-container">
             <div class="text-center text-white text-xs py-sm">
                 <p class="mb-0">
                     &copy; <?php echo date('Y'); ?> <?php bloginfo('name'); ?>.

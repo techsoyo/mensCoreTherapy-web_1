@@ -1,26 +1,39 @@
-.pagina-masajes {
-  padding: 2rem;
-  text-align: center;
+/* ===== ESTILOS ESPECÍFICOS PARA LAS CARDS DE MASAJES ===== */
+
+/* Variables CSS para mantener consistencia con el diseño existente */
+:root {
+  --neo-primary: #1e3a8a;
+  --neo-primary-hover: #1e40af;
+  --neo-secondary: #64748b;
+  --neo-accent: #06b6d4;
+  --neo-bg: #f8fafc;
+  --neo-surface: #ffffff;
+  --neo-text: #1e293b;
+  --neo-text-light: #64748b;
+  --neo-border: #e2e8f0;
+  --neo-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --neo-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
-.masajes-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  justify-items: center;
-}
-
+/* ===== ESTILOS DE LAS CARDS FLIP ===== */
 .card-flip {
+  background: transparent;
+  width: 100%;
+  height: 400px;
   perspective: 1000px;
+  cursor: pointer;
+  margin-bottom: 2rem;
 }
 
 .card-inner {
   position: relative;
   width: 100%;
-  height: 250px;
-  transition: transform 0.6s;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
   transform-style: preserve-3d;
-  cursor: pointer;
+  box-shadow: var(--neo-shadow-lg);
+  border-radius: 1rem;
 }
 
 .card-flip:hover .card-inner {
@@ -32,27 +45,290 @@
   position: absolute;
   width: 100%;
   height: 100%;
+  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  padding: 1.5rem;
-  background: #fff;
+  border-radius: 1rem;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+/* Cara frontal de la card */
 .card-front {
-  background: #f5f5f5;
+  background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.95) 0%,
+      rgba(248, 250, 252, 0.9) 100%);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
 }
 
+.card-front::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23000" opacity="0.02"/><circle cx="75" cy="75" r="1" fill="%23000" opacity="0.02"/><circle cx="50" cy="10" r="1" fill="%23000" opacity="0.02"/><circle cx="20" cy="80" r="1" fill="%23000" opacity="0.02"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+  pointer-events: none;
+  opacity: 0.3;
+  z-index: 1;
+}
+
+.card-front h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--neo-primary);
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 2;
+  line-height: 1.3;
+}
+
+.card-front p {
+  color: var(--neo-text-light);
+  line-height: 1.7;
+  position: relative;
+  z-index: 2;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+/* Cara trasera de la card */
 .card-back {
-  background: #fffae6;
+  background: linear-gradient(135deg,
+      var(--neo-primary) 0%,
+      var(--neo-accent) 100%);
+  color: white;
   transform: rotateY(180deg);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-/* Soporte para flip en móviles con JS */
-.card-flip.is-flipped .card-inner {
+.card-back::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="%23fff" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
+  pointer-events: none;
+  z-index: 1;
+}
+
+.card-back h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 2;
+  line-height: 1.3;
+}
+
+.card-back p {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+  position: relative;
+  z-index: 2;
+  line-height: 1.6;
+}
+
+.card-back strong {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+}
+
+/* ===== GRID DE MASAJES ===== */
+.masajes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+  padding: 0 1rem;
+}
+
+/* ===== TÍTULO DE SECCIÓN ===== */
+.titulo-seccion {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, var(--neo-primary), var(--neo-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 1s ease forwards;
+}
+
+/* ===== ANIMACIONES ===== */
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== EFECTOS ADICIONALES ===== */
+
+/* Efecto de brillo en el hover */
+.card-flip:hover .card-inner {
+  box-shadow: 0 20px 40px rgba(30, 58, 138, 0.2);
+}
+
+/* Animación de entrada para las cards */
+.card-flip {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.card-flip.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .masajes-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 0 0.5rem;
+  }
+
+  .card-flip {
+    height: 350px;
+    margin-bottom: 1.5rem;
+  }
+
+  .card-front,
+  .card-back {
+    padding: 1.5rem;
+  }
+
+  .card-front h3,
+  .card-back h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .card-front p {
+    font-size: 0.95rem;
+  }
+
+  .card-back p {
+    font-size: 1rem;
+  }
+
+  .titulo-seccion {
+    font-size: 2rem;
+    padding: 0 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-flip {
+    height: 320px;
+  }
+
+  .card-front,
+  .card-back {
+    padding: 1rem;
+  }
+
+  .card-front h3,
+  .card-back h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .card-front p {
+    font-size: 0.9rem;
+  }
+
+  .card-back p {
+    font-size: 0.95rem;
+    margin-bottom: 0.8rem;
+  }
+}
+
+/* ===== INTEGRACIÓN CON EL TEMA EXISTENTE ===== */
+
+/* Asegurar que el contenedor principal tenga el espacio adecuado 
+.pagina-masajes {
+  padding: 2rem 0;
+  min-height: auto;
+    Ajustar según header y footer fijos 
+}*/
+
+/* Compatibilidad con el sistema de contenido dinámico */
+.content-section .masajes-grid {
+  margin-top: 2rem;
+}
+
+/* ===== MEJORAS DE ACCESIBILIDAD ===== */
+
+/* Focus visible para accesibilidad con teclado */
+.card-flip:focus-within .card-inner {
   transform: rotateY(180deg);
+  outline: 2px solid var(--neo-accent);
+  outline-offset: 4px;
+}
+
+/* Preferencias del usuario para movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+  .card-inner {
+    transition: none;
+  }
+
+  .card-flip:hover .card-inner {
+    transform: none;
+  }
+
+  .card-flip:focus-within .card-inner {
+    transform: none;
+  }
+}
+
+/* ===== CLASES UTILITARIAS ADICIONALES ===== */
+
+/* Para resaltar elementos especiales */
+.card-flip.destacado .card-inner {
+  border: 2px solid var(--neo-accent);
+}
+
+.card-flip.destacado .card-front::before {
+  background: linear-gradient(45deg,
+      rgba(6, 182, 212, 0.1) 0%,
+      rgba(6, 182, 212, 0.05) 100%);
+}
+
+/* Para cards de oferta o promoción */
+.card-flip.oferta .card-back {
+  background: linear-gradient(135deg,
+      #059669 0%,
+      #10b981 100%);
+}
+
+.card-flip.oferta .card-back::after {
+  content: 'OFERTA';
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(255, 255, 255, 0.9);
+  color: #059669;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  z-index: 3;
 }

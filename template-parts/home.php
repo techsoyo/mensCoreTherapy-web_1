@@ -12,45 +12,31 @@ $ci = function_exists('mm_get_contact_info') ? mm_get_contact_info() : [
 ];
 ?>
 
-<div class="home-content">
-    <!-- Banner Principal -->
-    <section class="mm-home-banner"
-        style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/home.webp');"
-        role="banner">
-        <div class="mm-home-banner__overlay">
-            <div class="container">
-                <div class="mm-home-banner__content">
-                    <h1 class="mm-home-banner__title">
-                        Masajes Profesionales para Hombres
-                    </h1>
-                    <p class="mm-home-banner__subtitle">
-                        ¿Listo para tu experiencia de bienestar?
-                    </p>
-                    <p class="mm-home-banner__description">
-                        Discreción, profesionalidad y resultados garantizados. 100% Discreto.
-                        Reserva tu cita ahora y descubre una nueva dimensión de relajación y bienestar
-                    </p>
-
-                    <div class="mm-home-banner__cta">
-                        <a href="<?php echo esc_url(home_url('/reservas/')); ?>"
-                            class="btn btn--primary">
-                            Reservar Cita
-                        </a>
-                        <a href="<?php echo esc_url(home_url('/servicios/')); ?>"
-                            class="btn btn--white">
-                            Ver Servicios
-                        </a>
-                    </div>
-
-                    <div class="mm-home-banner__info">
-                        <span>tel. <?php echo esc_html($ci['phone']); ?></span>
-                        <span class="sep">|</span>
-                        <span><?php echo esc_html($ci['hours']); ?></span>
-                    </div>
-                </div>
-            </div>
+<!-- Banner Principal -->
+<div class="home-banner" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/home.webp');">
+    <div class="home-overlay"></div>
+    <div class="home-content">
+        <h1 class="home-title">Masajes Profesionales para Hombres</h1>
+        <p class="home-subtitle">¿Listo para tu experiencia de bienestar?</p>
+        <p class="home-description">
+            Discreción, profesionalidad y resultados garantizados. 100% Discreto. 
+            Reserva tu cita ahora y descubre una nueva dimensión de relajación y bienestar
+        </p>
+        
+        <div class="home-buttons">
+            <a href="<?php echo esc_url(home_url('/reservas/')); ?>" class="btn btn-primary">
+                Reservar Cita
+            </a>
+            <a href="<?php echo esc_url(home_url('/servicios/')); ?>" class="btn btn-secondary">
+                Ver Servicios
+            </a>
         </div>
-    </section>
+        
+        <div class="home-info">
+            tel. <?php echo esc_html($ci['phone']); ?> | <?php echo esc_html($ci['hours']); ?>
+        </div>
+    </div>
+</div>
 
     <!-- Llamada a la Acción Final -->
     <!-- <section class="mm-home-cta"> -->

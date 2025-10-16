@@ -36,7 +36,7 @@
       text-decoration: none;
     }
 
-    .nav-menu {
+    .nav__list {
       display: flex;
       list-style: none;
       margin: 0;
@@ -44,15 +44,17 @@
       gap: 2rem;
     }
 
-    .nav-link {
+    .nav__link {
       color: #1A0600;
       text-decoration: none;
       padding: 0.5rem 1rem;
-      border-radius: 4px;
+      border-radius: 0.25rem;
       transition: all 0.3s ease;
+      cursor: pointer;
     }
 
-    .nav-link:hover {
+    .nav__link:hover,
+    .nav__link--active {
       background-color: #B8380F;
       color: white;
     }
@@ -81,13 +83,13 @@
         </h1>
       </div>
 
-      <nav class="main-navigation">
-        <ul class="nav-menu">
-          <li><a href="/" class="nav-link">Inicio</a></li>
-          <li><a href="/servicios/" class="nav-link">Servicios</a></li>
-          <li><a href="/productos/" class="nav-link">Productos</a></li>
-          <li><a href="/reservas/" class="nav-link">Reservas</a></li>
-          <li><a href="/contactos/" class="nav-link">contactos</a></li>
+      <nav class="nav nav--primary">
+        <ul class="nav__list">
+          <li class="nav__item"><a href="/" class="nav__link">Inicio</a></li>
+          <li class="nav__item"><a href="/servicios/" class="nav__link">Servicios</a></li>
+          <li class="nav__item"><a href="/productos/" class="nav__link">Productos</a></li>
+          <li class="nav__item"><a href="/reservas/" class="nav__link">Reservas</a></li>
+          <li class="nav__item"><a href="/contactos/" class="nav__link">Contactos</a></li>
         </ul>
       </nav>
     </div>
