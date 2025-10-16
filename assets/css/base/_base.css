@@ -128,12 +128,7 @@ a:hover {
   color: var(--neo-primary-hover);
 }
 
-/* ===== CONTAINER ===== */
-.container {
-  max-width: var(--bp-wide);
-  margin: 0 auto;
-  padding: 0 var(--spacing-md);
-}
+
 
 /* ===== BUTTONS BASE ===== */
 .btn {
@@ -217,8 +212,3 @@ a:hover {
 }
 
 /* ===== RESPONSIVE UTILITIES ===== */
-@media (max-width: 48em) {
-  .container {
-    padding: 0 var(--spacing-sm);
-  }
-}

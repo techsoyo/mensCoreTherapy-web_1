@@ -1,9 +1,7 @@
 <?php
 /* Template Name: Masajes - Versión Mejorada */
 get_header();
-?>
-
-<main class="pagina-masajes masajes-container" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/torso.webp');">
+?><main class="pagina-masajes masajes-section-container" style="background-image: url(\'<?php echo get_template_directory_uri(); ?>/assets/images/torso.webp\');">
   <h1 class="titulo-seccion">Nuestros Masajes Terapéuticos</h1>
 
   <div class="masajes-grid">

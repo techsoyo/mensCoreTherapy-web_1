@@ -5,6 +5,8 @@
 
 /* Components */
 @import url('components/_components.css');
+@import url('components/_containers.css');
+/* Nueva importación para contenedores */
 
 /* Pages */
 @import url('pages/_pages.css');

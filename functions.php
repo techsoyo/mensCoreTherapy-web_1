@@ -52,9 +52,9 @@ function theme_scripts()
     // Estilos globales
     wp_enqueue_style('theme-style', get_stylesheet_uri());
     wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
-    wp_enqueue_style('main-css', get_template_directory_uri() . '/assets/css/_main.css');
-    wp_enqueue_style('contacto-css', get_template_directory_uri() . '/assets/css/contacto.css');
-    wp_enqueue_style('reservas-css', get_template_directory_uri() . '/assets/css/reservas.css');
+     wp_enqueue_style('main-css', get_template_directory_uri() . '/assets/css/_main.css', array(), '1.0.0', 'all');
+    wp_enqueue_style('contacto-css', get_template_directory_uri() . '/assets/css/contacto.css', array(), '1.0.0', 'all');
+    wp_enqueue_style('reservas-css', get_template_directory_uri() . '/assets/css/reservas.css', array(), '1.0.0', 'all');
 
     // Script global principal
     wp_enqueue_script('theme-script', get_template_directory_uri() . '/js/main.js', array('jquery'), '1.0.0', true);
@@ -72,7 +72,7 @@ add_action('wp_enqueue_scripts', 'theme_scripts');
 function enqueue_masajes_assets()
 {
     if (is_page('masajes')) { // Se ejecuta solo en la página "Masajes"
-        wp_enqueue_style('masajes-css', get_template_directory_uri() . '/assets/css/pages/_masajes.css');
+        wp_enqueue_style('masajes-css', get_template_directory_uri() . '/assets/css/pages/_masajes.css', array(), '1.0.0', 'all');
         wp_enqueue_script('masajes-js', get_template_directory_uri() . '/js/masajes.js', array('jquery'), '1.0.0', true);
     }
 }
