@@ -1,28 +1,42 @@
 /* ===== ESTILOS ESPECÍFICOS PARA LAS CARDS DE MASAJES ===== */
 
-/* Variables CSS para mantener consistencia con el diseño existente */
+/* Variables CSS usando la paleta corporativa */
 :root {
-  --neo-primary: #1e3a8a;
-  --neo-primary-hover: #1e40af;
-  --neo-secondary: #64748b;
-  --neo-accent: #06b6d4;
-  --neo-bg: #f8fafc;
-  --neo-surface: #ffffff;
-  --neo-text: #1e293b;
-  --neo-text-light: #64748b;
-  --neo-border: #e2e8f0;
-  --neo-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  --neo-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  /* Colores corporativos de MensCore Therapy */
+  --neo-primary: #B8380F;
+  /* Rojo/terracota - Color principal */
+  --neo-primary-hover: #A0300D;
+  /* Versión más oscura para hover */
+  --neo-secondary: #5D1800;
+  /* Marrón medio - Para textos secundarios */
+  --neo-accent: #E8D5C4;
+  /* Beige/crema - Para acentos y detalles */
+  --neo-bg: #F5E6DD;
+  /* Beige claro - Fondo principal */
+  --neo-surface: #FFFFFF;
+  /* Blanco - Superficie de cards */
+  --neo-text: #1A0600;
+  /* Marrón muy oscuro - Texto principal */
+  --neo-text-light: #5D1800;
+  /* Marrón medio - Texto secundario */
+  --neo-border: #E8D5C4;
+  /* Beige/crema - Bordes */
+  --neo-shadow: 0 4px 6px -1px rgba(26, 6, 0, 0.1);
+  /* Sombra con color corporativo */
+  --neo-shadow-lg: 0 10px 15px -3px rgba(26, 6, 0, 0.1);
+  /* Sombra grande */
 }
 
 /* ===== ESTILOS DE LAS CARDS FLIP ===== */
 .card-flip {
   background: transparent;
   width: 100%;
-  height: 400px;
+  height: 342px;
+  /* Reducido un 15% de 400px (10% + 5% adicional) */
   perspective: 1000px;
   cursor: pointer;
-  margin-bottom: 2rem;
+  margin-bottom: 1.71rem;
+  /* Reducido un 15% de 2rem (10% + 5% adicional) */
 }
 
 .card-inner {
@@ -47,13 +61,15 @@
   height: 100%;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  border-radius: 1rem;
+  border-radius: 0.85rem;
+  /* Reducido un 15% de 1rem (10% + 5% adicional) */
   overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
+  padding: 1.7rem;
+  /* Reducido un 15% de 2rem (10% + 5% adicional) */
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
@@ -61,9 +77,12 @@
 .card-front {
   background: linear-gradient(135deg,
       rgba(255, 255, 255, 0.95) 0%,
-      rgba(248, 250, 252, 0.9) 100%);
+      rgba(245, 230, 221, 0.9) 100%);
+  /* Usando el color de fondo corporativo */
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(232, 213, 196, 0.3);
+  /* Borde sutil con color corporativo */
 }
 
 .card-front::before {
@@ -73,18 +92,22 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23000" opacity="0.02"/><circle cx="75" cy="75" r="1" fill="%23000" opacity="0.02"/><circle cx="50" cy="10" r="1" fill="%23000" opacity="0.02"/><circle cx="20" cy="80" r="1" fill="%23000" opacity="0.02"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23B8380F" opacity="0.02"/><circle cx="75" cy="75" r="1" fill="%23B8380F" opacity="0.02"/><circle cx="50" cy="10" r="1" fill="%23B8380F" opacity="0.02"/><circle cx="20" cy="80" r="1" fill="%23B8380F" opacity="0.02"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
   pointer-events: none;
   opacity: 0.3;
   z-index: 1;
 }
 
 .card-front h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.8rem;
+  font-family: var(--font-secondary, 'Montserrat Alternates', sans-serif);
+  /* Fuente corporativa */
+  font-size: 1.53rem;
+  /* Reducido un 15% de 1.8rem (10% + 5% adicional) */
   font-weight: 600;
   color: var(--neo-primary);
-  margin-bottom: 1.5rem;
+  /* Color primario corporativo */
+  margin-bottom: 1.275rem;
+  /* Reducido un 15% de 1.5rem (10% + 5% adicional) */
   position: relative;
   z-index: 2;
   line-height: 1.3;
@@ -92,79 +115,94 @@
 
 .card-front p {
   color: var(--neo-text-light);
-  line-height: 1.7;
+  line-height: 1.55;
+  /* Ligeramente reducido más */
   position: relative;
   z-index: 2;
-  font-size: 1rem;
+  font-size: 0.85rem;
+  /* Reducido un 15% de 1rem (10% + 5% adicional) */
   font-weight: 400;
 }
 
 /* Cara trasera de la card */
 .card-back {
-  background: linear-gradient(135deg,
-      var(--neo-primary) 0%,
-      var(--neo-accent) 100%);
+  background: url('../../../assets/images/fonde-header.webp');
+  background-size: cover;
+  background-position: center;
   color: white;
   transform: rotateY(180deg);
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 2px 4px rgba(26, 6, 0, 0.5);
+  /* Sombra más oscura para mejor legibilidad sobre la imagen */
 }
 
-.card-back::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="%23fff" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
-  pointer-events: none;
-  z-index: 1;
-}
+/* Se ha eliminado el gradiente que cubría la imagen de fondo */
 
 .card-back h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.8rem;
-  font-weight: 600;
-  margin-bottom: 2rem;
+  font-family: var(--font-secondary, 'Montserrat Alternates', sans-serif);
+  /* Fuente corporativa */
+  font-size: 1.53rem;
+  /* Reducido un 15% de 1.8rem (10% + 5% adicional) */
+  font-weight: 700;
+  /* Aumentado para mejor legibilidad */
+  margin-bottom: 1.7rem;
+  /* Reducido un 15% de 2rem (10% + 5% adicional) */
   position: relative;
   z-index: 2;
   line-height: 1.3;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  /* Sombra más pronunciada */
 }
 
 .card-back p {
-  font-size: 1.1rem;
-  margin-bottom: 1rem;
+  font-size: 0.935rem;
+  /* Reducido un 15% de 1.1rem (10% + 5% adicional) */
+  margin-bottom: 0.85rem;
+  /* Reducido un 15% de 1rem (10% + 5% adicional) */
   font-weight: 500;
   position: relative;
   z-index: 2;
-  line-height: 1.6;
+  line-height: 1.45;
+  /* Ligeramente reducido más */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  /* Sombra para mejor legibilidad */
 }
 
 .card-back strong {
-  color: rgba(255, 255, 255, 0.9);
-  font-weight: 600;
+  color: rgba(255, 255, 255, 1);
+  /* Blanco puro para mejor contraste */
+  font-weight: 700;
+  /* Más negrita para destacar */
 }
 
 /* ===== GRID DE MASAJES ===== */
 .masajes-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 2rem;
-  margin-top: 3rem;
+  grid-template-columns: repeat(auto-fit, minmax(297.5px, 1fr));
+  /* Reducido un 15% de 350px (10% + 5% adicional) */
+  gap: 1.7rem;
+  /* Reducido un 15% de 2rem (10% + 5% adicional) */
+  margin: 2.55rem auto 0;
+  /* Reducido un 15% de 3rem (10% + 5% adicional) */
   padding: 0 1rem;
+  max-width: 85rem;
 }
 
 /* ===== TÍTULO DE SECCIÓN ===== */
 .titulo-seccion {
-  font-family: 'Playfair Display', serif;
-  font-size: 3rem;
+  font-family: var(--font-secondary, 'Montserrat Alternates', sans-serif);
+  /* Usando la fuente corporativa */
+  font-size: 2.55rem;
+  /* Reducido un 15% de 3rem (10% + 5% adicional) */
   font-weight: 700;
   text-align: center;
-  margin-bottom: 1rem;
-  background: linear-gradient(135deg, var(--neo-primary), var(--neo-accent));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  margin: 3.5rem auto 1rem;
+  /* Aumentado aún más el margen superior para dar más espacio */
+  max-width: 85rem;
+  padding: 0 1rem;
+  color: var(--neo-primary);
+  /* Color principal corporativo */
+  text-shadow: 1px 1px 2px rgba(232, 213, 196, 0.8);
+  /* Sombra sutil con color corporativo */
   opacity: 0;
   transform: translateY(30px);
   animation: fadeInUp 1s ease forwards;
@@ -201,63 +239,88 @@
 @media (max-width: 768px) {
   .masajes-grid {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 1.275rem;
+    /* Reducido un 15% de 1.5rem (10% + 5% adicional) */
     padding: 0 0.5rem;
   }
 
   .card-flip {
-    height: 350px;
-    margin-bottom: 1.5rem;
+    height: 297.5px;
+    /* Reducido un 15% de 350px (10% + 5% adicional) */
+    margin-bottom: 1.275rem;
+    /* Reducido un 15% de 1.5rem (10% + 5% adicional) */
   }
 
   .card-front,
   .card-back {
-    padding: 1.5rem;
+    padding: 1.275rem;
+    /* Reducido un 15% de 1.5rem (10% + 5% adicional) */
   }
 
   .card-front h3,
   .card-back h3 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
+    font-size: 1.275rem;
+    /* Reducido un 15% de 1.5rem (10% + 5% adicional) */
+    margin-bottom: 0.85rem;
+    /* Reducido un 15% de 1rem (10% + 5% adicional) */
   }
 
   .card-front p {
-    font-size: 0.95rem;
+    font-size: 0.8075rem;
+    /* Reducido un 15% de 0.95rem (10% + 5% adicional) */
   }
 
   .card-back p {
-    font-size: 1rem;
+    font-size: 0.85rem;
+    /* Reducido un 15% de 1rem (10% + 5% adicional) */
   }
 
   .titulo-seccion {
-    font-size: 2rem;
+    font-size: 1.7rem;
+    /* Reducido un 15% de 2rem (10% + 5% adicional) */
     padding: 0 1rem;
+    margin-top: 3rem;
+    /* Aumentado aún más para dar más espacio */
   }
 }
 
 @media (max-width: 480px) {
   .card-flip {
-    height: 320px;
+    height: 272px;
+    /* Reducido un 15% de 320px (10% + 5% adicional) */
   }
 
   .card-front,
   .card-back {
-    padding: 1rem;
+    padding: 0.85rem;
+    /* Reducido un 15% de 1rem (10% + 5% adicional) */
   }
 
   .card-front h3,
   .card-back h3 {
-    font-size: 1.3rem;
-    margin-bottom: 0.8rem;
+    font-size: 1.105rem;
+    /* Reducido un 15% de 1.3rem (10% + 5% adicional) */
+    margin-bottom: 0.68rem;
+    /* Reducido un 15% de 0.8rem (10% + 5% adicional) */
   }
 
   .card-front p {
-    font-size: 0.9rem;
+    font-size: 0.765rem;
+    /* Reducido un 15% de 0.9rem (10% + 5% adicional) */
   }
 
   .card-back p {
-    font-size: 0.95rem;
-    margin-bottom: 0.8rem;
+    font-size: 0.8075rem;
+    /* Reducido un 15% de 0.95rem (10% + 5% adicional) */
+    margin-bottom: 0.68rem;
+    /* Reducido un 15% de 0.8rem (10% + 5% adicional) */
+  }
+
+  .titulo-seccion {
+    font-size: 1.53rem;
+    /* Reducido un 15% de 1.8rem (10% + 5% adicional) */
+    margin-top: 2.5rem;
+    /* Aumentado para dar más espacio */
   }
 }
 
@@ -299,36 +362,123 @@
   }
 }
 
+/* ===== SECCIÓN DE INFORMACIÓN ADICIONAL ===== */
+.info-adicional {
+  max-width: 85rem;
+  margin: 2.55rem auto;
+  /* Reducido un 15% de 3rem (10% + 5% adicional) */
+  padding: 0 1rem;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  background: rgba(245, 230, 221, 0.9);
+  /* Fondo con color corporativo */
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: var(--neo-shadow);
+  border: 1px solid rgba(232, 213, 196, 0.5);
+  /* Borde sutil con color corporativo */
+}
+
+.info-item h4 {
+  font-family: var(--font-secondary, 'Montserrat Alternates', sans-serif);
+  /* Fuente corporativa */
+  font-size: 1.5rem;
+  color: var(--neo-primary);
+  /* Color primario corporativo */
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.info-item ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.info-item li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+  color: var(--neo-text);
+  /* Color de texto corporativo */
+}
+
+.info-item li:before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--neo-primary);
+  /* Color primario corporativo */
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .info-grid {
+    grid-template-columns: 1fr;
+    padding: 1.5rem;
+  }
+
+  .info-item h4 {
+    font-size: 1.3rem;
+  }
+}
+
+/* ===== BOTÓN DE RESERVA ===== */
+.card-actions {
+  margin-top: 1.5rem;
+}
+
+.btn-reservar {
+  background-color: rgba(245, 230, 221, 0.95);
+  /* Fondo con color corporativo */
+  color: var(--neo-primary);
+  /* Texto con color primario */
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  /* Borde blanco para destacar */
+  padding: 0.75rem 1.5rem;
+  border-radius: 2rem;
+  font-weight: 700;
+  /* Más negrita para mejor legibilidad */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  /* Sombra más pronunciada */
+  font-family: var(--font-primary, 'Montserrat', sans-serif);
+  /* Fuente corporativa */
+  letter-spacing: 0.5px;
+  /* Mejor espaciado entre letras */
+}
+
+.btn-reservar:hover {
+  background-color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  /* Sombra más pronunciada en hover */
+  color: var(--neo-primary-hover);
+  /* Color hover corporativo */
+  border-color: white;
+}
+
 /* ===== CLASES UTILITARIAS ADICIONALES ===== */
 
 /* Para resaltar elementos especiales */
 .card-flip.destacado .card-inner {
-  border: 2px solid var(--neo-accent);
+  border: 2px solid var(--neo-primary);
+  /* Borde con color primario corporativo */
+  box-shadow: 0 10px 20px rgba(184, 56, 15, 0.15);
+  /* Sombra con color corporativo */
 }
 
 .card-flip.destacado .card-front::before {
   background: linear-gradient(45deg,
-      rgba(6, 182, 212, 0.1) 0%,
-      rgba(6, 182, 212, 0.05) 100%);
+      rgba(184, 56, 15, 0.08) 0%,
+      /* Color primario con baja opacidad */
+      rgba(184, 56, 15, 0.04) 100%);
 }
 
-/* Para cards de oferta o promoción */
-.card-flip.oferta .card-back {
-  background: linear-gradient(135deg,
-      #059669 0%,
-      #10b981 100%);
-}
-
-.card-flip.oferta .card-back::after {
-  content: 'OFERTA';
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: rgba(255, 255, 255, 0.9);
-  color: #059669;
-  padding: 0.25rem 0.75rem;
-  border-radius: 1rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  z-index: 3;
-}
+/* Se eliminó el código de las cards de oferta para aligerar el código */

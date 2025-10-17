@@ -170,8 +170,12 @@
 
 }
 
-.nav__link {
-  color: white;
+.nav__link,
+.header__nav a,
+#primary-menu a,
+.nav__list a,
+.menu-item a {
+  color: white !important;
   text-decoration: none;
   padding: 0.5rem 1rem;
   border-radius: 0.25rem;
@@ -180,9 +184,13 @@
 }
 
 .nav__link:hover,
-.nav__link--active {
+.nav__link--active,
+.header__nav a:hover,
+#primary-menu a:hover,
+.nav__list a:hover,
+.menu-item a:hover {
   background-color: var(--neo-primary);
-  color: white;
+  color: white !important;
 }
 
 .header__toggle {
@@ -474,11 +482,26 @@ main {
 
 /* ===== MASAGES CONTAINER ===== */
 .masajes-container {
-  max-width: 85rem;
+  width: 100%;
+  max-width: 100%;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
 
-
+/* Pseudo-elemento para la imagen de fondo */
+.pagina-masajes {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  padding-top: 5rem;
+  /* Aumentado padding superior para dar más espacio al título */
 }
 
 /* ===== PRODUCTOS CONTAINER ===== */
