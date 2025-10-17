@@ -39,10 +39,9 @@
 .contacto-info {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
-  padding: 1.2rem;
-  border-radius: 9px;
+  padding: 2rem;
+  border-radius: 15px;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
   height: fit-content;
   display: flex;
   flex-direction: column;
@@ -51,7 +50,7 @@
 
 .contacto-info__title {
   font-size: 1.2rem;
-  color: #2c3e50;
+  color: white;
   margin-bottom: 0.5rem;
   text-align: center;
 }
@@ -66,7 +65,7 @@
 }
 
 .contacto-item:hover {
-  background-color: #f8f9fa;
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .contacto-item__icon {
@@ -87,27 +86,26 @@
 }
 
 .contacto-item__content h4 {
-  color: #2c3e50;
+  color: white;
   margin-bottom: 0.3rem;
   font-size: 0.66rem;
 }
 
 .contacto-item__content p {
-  color: #7f8c8d;
+  color: rgba(255, 255, 255, 0.8);
   margin: 0;
   line-height: 1.5;
 }
 
 .contacto-form {
   background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
   padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   width: 100%;
   max-width: 800px;
   margin: 0 auto;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .contacto-form form {

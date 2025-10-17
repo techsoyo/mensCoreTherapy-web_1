@@ -8,14 +8,15 @@
 
 <section class="reservas-section">
     <div class="reservas-container">
-        <header class="reservas-header mb-xl text-center">
-            <h2 class="section-title text-primary mb-md">Reservar Cita</h2>
-            <p class="section-subtitle text-body">Agenda tu sesión de bienestar de forma fácil y rápida</p>
+        <!-- Header -->
+        <header class="reservas-header">
+            <h2 class="section-title">Reservar Cita</h2>
+            <p class="section-subtitle">Agenda tu sesión de bienestar de forma fácil y rápida</p>
         </header>
 
         <div class="reservas-grid">
             <!-- Información de reservas -->
-            <div class="reservas-info">
+            <aside class="reservas-info">
                 <h3 class="reservas-info__title">Información de Reservas</h3>
 
                 <div class="info-card">
@@ -23,7 +24,7 @@
                         <i class="fa fa-calendar-check"></i>
                     </div>
                     <div class="info-card__content">
-                        <h5>Disponibilidad</h5>
+                        <h4>Disponibilidad</h4>
                         <p>Lunes a Viernes: 9:00 - 21:00<br>Sábados: 10:00 - 18:00</p>
                     </div>
                 </div>
@@ -33,7 +34,7 @@
                         <i class="fa fa-clock"></i>
                     </div>
                     <div class="info-card__content">
-                        <h5>Confirmación</h5>
+                        <h4>Confirmación</h4>
                         <p>Te confirmaremos tu cita en menos de 2 horas</p>
                     </div>
                 </div>
@@ -43,7 +44,7 @@
                         <i class="fa fa-shield-alt"></i>
                     </div>
                     <div class="info-card__content">
-                        <h5>Política de Cancelación</h5>
+                        <h4>Política de Cancelación</h4>
                         <p>Cancela hasta 24h antes sin costo</p>
                     </div>
                 </div>
@@ -53,32 +54,35 @@
                         <i class="fa fa-credit-card"></i>
                     </div>
                     <div class="info-card__content">
-                        <h5>Formas de Pago</h5>
+                        <h4>Formas de Pago</h4>
                         <p>Efectivo, tarjeta o transferencia</p>
                     </div>
                 </div>
-            </div>
+            </aside>
 
             <!-- Formulario de reservas -->
             <div class="reservas-form">
                 <h3 class="reservas-form__title">Datos de la Reserva</h3>
 
-                <form class="mm-reservas-form" id="reservasForm" method="post" action="">
+                <form class="mm-reservas-form" id="reservasForm" method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
+                    <?php wp_nonce_field('submit_reserva_form', 'reserva_form_nonce'); ?>
+                    <input type="hidden" name="action" value="submit_reserva_form">
+
                     <div class="form-row">
                         <div class="form-group">
                             <label for="nombre">Nombre Completo *</label>
-                            <input type="text" id="nombre" name="nombre" required>
+                            <input type="text" id="nombre" name="nombre" required autocomplete="name">
                         </div>
 
                         <div class="form-group">
                             <label for="telefono">Teléfono *</label>
-                            <input type="tel" id="telefono" name="telefono" required>
+                            <input type="tel" id="telefono" name="telefono" required autocomplete="tel">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="email">Email *</label>
-                        <input type="email" id="email" name="email" required>
+                        <input type="email" id="email" name="email" required autocomplete="email">
                     </div>
 
                     <div class="form-group">
@@ -89,18 +93,29 @@
                             $servicios = get_posts(array(
                                 'post_type' => 'servicio',
                                 'numberposts' => -1,
-                                'post_status' => 'publish'
+                                'post_status' => 'publish',
+                                'orderby' => 'title',
+                                'order' => 'ASC'
                             ));
+
                             foreach ($servicios as $servicio) {
                                 $precio = get_post_meta($servicio->ID, '_servicio_precio', true);
                                 $duracion = get_post_meta($servicio->ID, '_servicio_duracion', true);
                                 $info_extra = '';
+
                                 if ($precio || $duracion) {
-                                    $info_extra = ' - ';
-                                    if ($precio) $info_extra .= $precio;
-                                    if ($duracion) $info_extra .= ' (' . $duracion . ')';
+                                    $info_parts = array();
+                                    if ($precio) $info_parts[] = $precio;
+                                    if ($duracion) $info_parts[] = $duracion;
+                                    $info_extra = ' - ' . implode(' | ', $info_parts);
                                 }
-                                echo '<option value="' . esc_attr($servicio->post_title) . '">' . esc_html($servicio->post_title) . $info_extra . '</option>';
+
+                                printf(
+                                    '<option value="%s">%s%s</option>',
+                                    esc_attr($servicio->post_title),
+                                    esc_html($servicio->post_title),
+                                    esc_html($info_extra)
+                                );
                             }
                             ?>
                         </select>
@@ -116,18 +131,12 @@
                             <label for="hora">Hora Preferida *</label>
                             <select id="hora" name="hora" required>
                                 <option value="">Seleccionar hora...</option>
-                                <option value="09:00">09:00</option>
-                                <option value="10:00">10:00</option>
-                                <option value="11:00">11:00</option>
-                                <option value="12:00">12:00</option>
-                                <option value="13:00">13:00</option>
-                                <option value="14:00">14:00</option>
-                                <option value="15:00">15:00</option>
-                                <option value="16:00">16:00</option>
-                                <option value="17:00">17:00</option>
-                                <option value="18:00">18:00</option>
-                                <option value="19:00">19:00</option>
-                                <option value="20:00">20:00</option>
+                                <?php
+                                for ($h = 9; $h <= 20; $h++) {
+                                    $hora = sprintf('%02d:00', $h);
+                                    printf('<option value="%s">%s</option>', $hora, $hora);
+                                }
+                                ?>
                             </select>
                         </div>
                     </div>
@@ -140,7 +149,6 @@
                     <div class="form-group checkbox-group">
                         <label class="checkbox-label">
                             <input type="checkbox" id="confirmacion" name="confirmacion" required>
-                            <span class="checkmark"></span>
                             Confirmo que la información proporcionada es correcta *
                         </label>
                     </div>
@@ -148,8 +156,7 @@
                     <div class="form-group checkbox-group">
                         <label class="checkbox-label">
                             <input type="checkbox" id="privacidad" name="privacidad" required>
-                            <span class="checkmark"></span>
-                            Acepto la <a href="/politica-privacidad/" target="_blank">política de privacidad</a> *
+                            Acepto la <a href="<?php echo esc_url(get_privacy_policy_url()); ?>" target="_blank" rel="noopener">política de privacidad</a> *
                         </label>
                     </div>
 
@@ -158,44 +165,10 @@
                         Solicitar Reserva
                     </button>
 
-                    <p class="form-note">
-                        * La reserva estará sujeta a confirmación de disponibilidad
-                    </p>
+                    <p class="form-note">* La reserva estará sujeta a confirmación de disponibilidad</p>
                 </form>
             </div>
         </div>
     </div>
 </section>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const form = document.getElementById('reservasForm');
-
-        if (form) {
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-
-                // Validar que todos los campos requeridos estén llenos
-                const requiredFields = form.querySelectorAll('[required]');
-                let isValid = true;
-
-                requiredFields.forEach(field => {
-                    if (!field.value.trim()) {
-                        isValid = false;
-                        field.style.borderColor = '#e74c3c';
-                    } else {
-                        field.style.borderColor = '#e9ecef';
-                    }
-                });
-
-                if (isValid) {
-                    // Aquí se puede agregar la lógica para enviar la reserva
-                    alert('¡Solicitud de reserva enviada! Te contactaremos pronto para confirmar tu cita.');
-                    form.reset();
-                } else {
-                    alert('Por favor, completa todos los campos obligatorios.');
-                }
-            });
-        }
-    });
-</script>
