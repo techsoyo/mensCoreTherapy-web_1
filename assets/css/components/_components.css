@@ -332,9 +332,9 @@
   justify-content: center;
   gap: 0.27rem;
   /* Gap reducido 10% (era 0.3rem) */
-} */
+}
 
-.btn--neo {
+*/ .btn--neo {
   background-color: rgba(255, 255, 255, 0.1);
   border: 0.1125rem solid white;
   /* Borde reducido 10% (era 0.125rem) */
@@ -526,12 +526,18 @@ main {
 }
 
 .whatsapp-reserva-option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Centrar horizontalmente */
+  gap: 0.5rem;
+  /* Espacio entre el texto y el botón */
   margin-top: 1.5rem;
-  text-align: center;
 }
 
 .whatsapp-reserva-option p {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0;
+  /* Eliminar margen inferior para alineación en línea */
   color: #666;
   font-size: 0.9rem;
 }
@@ -540,11 +546,14 @@ main {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 0.325rem;
+  /* Reducido en 35% de 0.5rem */
   background: #25D366;
   color: white;
-  padding: 0.75rem 1.5rem;
-  border-radius: 2.5rem;
+  padding: 0.4875rem 0.975rem;
+  /* Reducido en 35% de 0.75rem 1.5rem */
+  border-radius: 1.625rem;
+  /* Reducido en 35% de 2.5rem */
   text-decoration: none;
   font-weight: 600;
   transition: background 0.3s ease;
