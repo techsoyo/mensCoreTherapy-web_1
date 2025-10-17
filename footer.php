@@ -23,17 +23,26 @@
                     <h4 class="footer__section-title text-white mb-sm">
                         <?php _e('Reservar', 'menscoretherapy'); ?>
                     </h4>
-                    <div class="footer__buttons flex flex--center gap-sm">
-                        <a href="https://wa.me/34666777888"
-                            class="btn btn--neo btn--sm"
-                            target="_blank">
-                            <i class="fa fa-whatsapp mr-xs"></i>
-                            WhatsApp
-                        </a>
-                        <a href="mailto:info@masajes.com"
-                            class="btn btn--neo btn--sm">
-                            <i class="fa fa-envelope mr-xs"></i>
-                            Email
+                    <!-- Botón de WhatsApp (justo después del </form> o junto al botón de submit) -->
+                    <div class="whatsapp-reserva-option">
+                        <p>¿Prefieres reservar por WhatsApp?</p>
+                        <a
+                            href="https://wa.me/34123456789?text=<?php echo urlencode(
+                                                                        "Hola, quiero reservar desde la web. Mis datos son:\n" .
+                                                                            "- Nombre: [Tu nombre]\n" .
+                                                                            "- Producto: " . (isset($_GET['producto']) ? urldecode($_GET['producto']) : 'No especificado') . "\n" .
+                                                                            "- Día: [Día]\n" .
+                                                                            "- Hora: [Hora]\n" .
+                                                                            "- Email: [Tu email]"
+                                                                    ); ?>"
+                            class="btn-whatsapp-reserva"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" />
+                                <path d="M8 10L12 14L16 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            Reservar por WhatsApp
                         </a>
                     </div>
                 </div>

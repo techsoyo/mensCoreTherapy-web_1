@@ -327,12 +327,12 @@
   font-weight: 600;
 }
 
-.footer__buttons {
+/* .footer__buttons {
   display: flex;
   justify-content: center;
   gap: 0.27rem;
   /* Gap reducido 10% (era 0.3rem) */
-}
+} */
 
 .btn--neo {
   background-color: rgba(255, 255, 255, 0.1);
@@ -431,10 +431,10 @@ main {
     grid-template-columns: 1fr;
   }
 
-  .footer__buttons {
+  /* .footer__buttons {
     flex-direction: column;
     align-items: center;
-  }
+  } */
 
   /* Ajustar altura en móvil si es necesario */
   .footer {
@@ -523,4 +523,35 @@ main {
   max-width: 75rem;
   margin: 0 auto;
   padding: 0 1rem;
+}
+
+.whatsapp-reserva-option {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.whatsapp-reserva-option p {
+  margin-bottom: 0.5rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.btn-whatsapp-reserva {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: #25D366;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 2.5rem;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.3s ease;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.btn-whatsapp-reserva:hover {
+  background: #128C7E;
 }
