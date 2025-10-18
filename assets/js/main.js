@@ -1,8 +1,3 @@
-/**
- * MensCore Therapy - Main JavaScript
- * Funcionalidades interactivas del tema
- */
-
 document.addEventListener('DOMContentLoaded', function() {
     console.log('MensCore Therapy theme loaded');
     
@@ -21,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // ===== INTEGRACIÓN WHATSAPP =====
     initWhatsAppIntegration();
     
-    // ===== HEADER STICKY MEJORADO =====
+    // ===== HEADER STICKY MEJORADO (SIEMPRE VISIBLE) =====
     initStickyHeader();
     
     // ===== FOOTER STICKY CON COMPORTAMIENTO OPUESTO =====
@@ -30,14 +25,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // ===== NAVEGACIÓN MÓVIL =====
 function initMobileNavigation() {
-    const mobileMenuButton = document.querySelector('.mobile-menu-toggle');
-    const navigation = document.querySelector('.main-navigation');
+    const mobileMenuButton = document.querySelector('.mobile-menu-toggle, .header__toggle');
+    const navigation = document.querySelector('.main-navigation, .header__nav');
     
     if (mobileMenuButton && navigation) {
         mobileMenuButton.addEventListener('click', function() {
             navigation.classList.toggle('is-open');
             mobileMenuButton.classList.toggle('is-active');
             document.body.classList.toggle('menu-open');
+            
+            // Toggle aria-expanded
+            const isExpanded = this.getAttribute('aria-expanded') === 'true';
+            this.setAttribute('aria-expanded', !isExpanded);
         });
         
         // Cerrar menú al hacer clic en un enlace
@@ -47,7 +46,18 @@ function initMobileNavigation() {
                 navigation.classList.remove('is-open');
                 mobileMenuButton.classList.remove('is-active');
                 document.body.classList.remove('menu-open');
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
             });
+        });
+        
+        // Cerrar menú al presionar ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && navigation.classList.contains('is-open')) {
+                navigation.classList.remove('is-open');
+                mobileMenuButton.classList.remove('is-active');
+                document.body.classList.remove('menu-open');
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
+            }
         });
     }
 }
@@ -59,14 +69,17 @@ function initSmoothScroll() {
     links.forEach(link => {
         link.addEventListener('click', function(e) {
             const href = this.getAttribute('href');
-            if (href === '#') return;
+            if (href === '#' || href === '#!') return;
             
             const target = document.querySelector(href);
             if (target) {
                 e.preventDefault();
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
+                const headerHeight = document.querySelector('.header')?.offsetHeight || 0;
+                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
                 });
             }
         });
@@ -75,6 +88,9 @@ function initSmoothScroll() {
 
 // ===== ANIMACIONES AL SCROLL =====
 function initScrollAnimations() {
+    // Verificar si el navegador soporta IntersectionObserver
+    if (!('IntersectionObserver' in window)) return;
+    
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -91,7 +107,7 @@ function initScrollAnimations() {
     
     // Elementos a animar
     const animateElements = document.querySelectorAll(
-        '.mm-home-service-card, .mm-home-product-card, .footer__content, .mm-home-Nobanner__content'
+        '.mm-home-service-card, .mm-home-product-card, .footer__content, .mm-home-Nobanner__content, .flip-card'
     );
     
     animateElements.forEach(el => {
@@ -117,9 +133,15 @@ function initHoverEffects() {
     });
     
     // Botones con efecto ripple
-    const buttons = document.querySelectorAll('.btn');
+    const buttons = document.querySelectorAll('.btn:not(.header__toggle)');
     buttons.forEach(button => {
         button.addEventListener('click', function(e) {
+            // Verificar que el botón tenga position relative o absolute
+            const position = window.getComputedStyle(this).position;
+            if (position === 'static') {
+                this.style.position = 'relative';
+            }
+            
             const ripple = document.createElement('span');
             const rect = this.getBoundingClientRect();
             const size = Math.max(rect.width, rect.height);
@@ -137,6 +159,7 @@ function initHoverEffects() {
                 transform: scale(0);
                 animation: ripple 0.6s linear;
                 pointer-events: none;
+                z-index: 0;
             `;
             
             this.appendChild(ripple);
@@ -157,37 +180,32 @@ function initWhatsAppIntegration() {
                 e.preventDefault();
                 const message = encodeURIComponent('Hola, estoy interesado en sus servicios de masajes profesionales. ¿Podrían darme más información?');
                 const newHref = href + (href.includes('?') ? '&' : '?') + 'text=' + message;
-                window.open(newHref, '_blank');
+                window.open(newHref, '_blank', 'noopener,noreferrer');
             }
         });
     });
 }
 
-// ===== HEADER STICKY MEJORADO =====
+// ===== HEADER STICKY MEJORADO - SIEMPRE VISIBLE =====
 function initStickyHeader() {
     const header = document.querySelector('.header, .site-header');
     if (!header) return;
     
-    let lastScrollY = window.scrollY;
     let ticking = false;
     
     function updateHeader() {
         const scrollY = window.scrollY;
         
+        // Solo agregar clase de scrolled para cambiar el estilo
         if (scrollY > 100) {
             header.classList.add('header--scrolled');
         } else {
             header.classList.remove('header--scrolled');
         }
         
-        // Ocultar header al scroll hacia abajo, mostrar al scroll hacia arriba
-        if (scrollY > lastScrollY && scrollY > 200) {
-            header.classList.add('header--hidden');
-        } else if (scrollY < lastScrollY) {
-            header.classList.remove('header--hidden');
-        }
+        // NUNCA ocultar el header
+        header.classList.remove('header--hidden');
         
-        lastScrollY = scrollY;
         ticking = false;
     }
     
@@ -198,7 +216,7 @@ function initStickyHeader() {
         }
     }
     
-    window.addEventListener('scroll', requestTick);
+    window.addEventListener('scroll', requestTick, { passive: true });
 }
 
 // ===== FOOTER STICKY CON COMPORTAMIENTO OPUESTO =====
@@ -211,13 +229,22 @@ function initStickyFooter() {
     
     function updateFooter() {
         const scrollY = window.scrollY;
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight;
         
-        // Comportamiento opuesto al header:
-        // Ocultar footer al scroll hacia arriba, mostrar al scroll hacia abajo
-        if (scrollY < lastScrollY && scrollY > 200) {
-            footer.classList.add('footer--hidden');
-        } else if (scrollY > lastScrollY) {
+        // No ocultar el footer si estamos cerca del final de la página
+        const distanceToBottom = documentHeight - (scrollY + windowHeight);
+        
+        if (distanceToBottom < 100) {
             footer.classList.remove('footer--hidden');
+        } else {
+            // Comportamiento opuesto al header:
+            // Ocultar footer al scroll hacia arriba, mostrar al scroll hacia abajo
+            if (scrollY < lastScrollY && scrollY > 200) {
+                footer.classList.add('footer--hidden');
+            } else if (scrollY > lastScrollY) {
+                footer.classList.remove('footer--hidden');
+            }
         }
         
         lastScrollY = scrollY;
@@ -231,12 +258,13 @@ function initStickyFooter() {
         }
     }
     
-    window.addEventListener('scroll', requestTick);
+    window.addEventListener('scroll', requestTick, { passive: true });
 }
 
 // ===== CSS DINÁMICO PARA ANIMACIONES =====
 const style = document.createElement('style');
 style.textContent = `
+    /* Animaciones de entrada */
     .animate-ready {
         opacity: 0;
         transform: translateY(30px);
@@ -248,17 +276,19 @@ style.textContent = `
         transform: translateY(0);
     }
     
+    /* Header con scroll */
     .header--scrolled {
-        background-color: rgba(245, 230, 221, 0.95);
+        background-color: rgba(0, 0, 0, 0.7) !important;
         backdrop-filter: blur(10px);
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     }
     
+    /* Header NUNCA se oculta - esta clase no debe aplicarse */
     .header--hidden {
-        transform: translateY(-100%);
-        transition: transform 0.3s ease-in-out;
+        transform: translateY(0) !important;
     }
     
+    /* Efecto ripple */
     @keyframes ripple {
         to {
             transform: scale(4);
@@ -266,8 +296,42 @@ style.textContent = `
         }
     }
     
+    /* Menu móvil abierto */
     .menu-open {
         overflow: hidden;
+    }
+    
+    /* Navegación móvil */
+    @media (max-width: 768px) {
+        .header__nav.is-open {
+            display: block !important;
+            position: fixed;
+            top: 4.5rem;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            z-index: 999;
+        }
+        
+        .header__nav.is-open .nav__list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .header__toggle.is-active .hamburger__line:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+        
+        .header__toggle.is-active .hamburger__line:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .header__toggle.is-active .hamburger__line:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
     }
 `;
 document.head.appendChild(style);

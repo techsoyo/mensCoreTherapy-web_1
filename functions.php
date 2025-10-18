@@ -1,196 +1,101 @@
 <?php
-// =====================================================
-//  Registrar tipos de post personalizados
-// =====================================================
-function registrar_tipos_post_personalizados()
-{
-    // Registro del tipo de post 'producto'
-    register_post_type('producto', array(
-        'labels' => array(
-            'name' => 'Productos',
-            'singular_name' => 'Producto',
-            'add_new' => 'Añadir Nuevo',
-            'add_new_item' => 'Añadir Nuevo Producto',
-            'edit_item' => 'Editar Producto',
-            'new_item' => 'Nuevo Producto',
-            'view_item' => 'Ver Producto',
-            'search_items' => 'Buscar Productos',
-            'not_found' => 'No se encontraron productos',
-            'not_found_in_trash' => 'No se encontraron productos en la papelera'
-        ),
-        'public' => true,
-        'has_archive' => true,
-        'supports' => array('title', 'editor', 'excerpt', 'thumbnail'),
-        'menu_icon' => 'dashicons-products',
-        'rewrite' => array('slug' => 'productos'),
-        'show_in_rest' => true
-    ));
-}
-add_action('init', 'registrar_tipos_post_personalizados');
+
+/**
+ * Functions and definitions
+ * 
+ * @package MensCoreTherapy
+ */
+
+if (!defined('ABSPATH')) exit;
 
 // =====================================================
-//  Configuración del tema (menús, thumbnails, etc.)
+//  Configuración del tema
 // =====================================================
-function theme_setup()
+function menscoretherapy_theme_setup()
 {
+    // Soporte de características del tema
     add_theme_support('menus');
     add_theme_support('post-thumbnails');
+    add_theme_support('title-tag');
 
     // Registrar ubicaciones de menús
     register_nav_menus(array(
-        'primary' => 'Menú Principal',
-        'footer' => 'Menú del Pie de Página'
+        'primary' => __('Menú Principal', 'menscoretherapy'),
+        'footer'  => __('Menú del Pie de Página', 'menscoretherapy'),
+        'legal'   => __('Menú Legal', 'menscoretherapy')
     ));
 }
-add_action('after_setup_theme', 'theme_setup');
+add_action('after_setup_theme', 'menscoretherapy_theme_setup');
 
 // =====================================================
 //  Enqueue scripts y estilos globales
 // =====================================================
-function theme_scripts()
+function menscoretherapy_enqueue_scripts()
 {
     // Estilos globales
     wp_enqueue_style('theme-style', get_stylesheet_uri());
-    wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
-    wp_enqueue_style('main-css', get_template_directory_uri() . '/assets/css/_main.css', array(), '1.0.0', 'all');
-    wp_enqueue_style('contacto-css', get_template_directory_uri() . '/assets/css/contacto.css', array(), '1.0.0', 'all');
-    wp_enqueue_style('reservas-css', get_template_directory_uri() . '/assets/css/reservas.css', array(), '1.0.0', 'all');
+    wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css', array(), '6.0.0');
+    wp_enqueue_style('main-css', get_template_directory_uri() . '/assets/css/_main.css', array(), '1.0.0');
+
+    // Estilos específicos de páginas
+    if (is_page('contacto')) {
+        wp_enqueue_style('contacto-css', get_template_directory_uri() . '/assets/css/contacto.css', array(), '1.0.0');
+    }
+
+    if (is_page('reservas')) {
+        wp_enqueue_style('reservas-css', get_template_directory_uri() . '/assets/css/reservas.css', array(), '1.0.0');
+    }
 
     // Script global principal
     wp_enqueue_script('theme-script', get_template_directory_uri() . '/assets/js/main.js', array('jquery'), '1.0.0', true);
-
 }
-add_action('wp_enqueue_scripts', 'theme_scripts');
+add_action('wp_enqueue_scripts', 'menscoretherapy_enqueue_scripts');
 
 // =====================================================
-//  Encolar estilos y scripts específicos para la página "Masajes"
+//  Scripts específicos por página
 // =====================================================
-function enqueue_masajes_assets()
+function menscoretherapy_enqueue_page_scripts()
 {
-    if (is_page('masajes')) { // Se ejecuta solo en la página "Masajes"
-        wp_enqueue_style('masajes-css', get_template_directory_uri() . '/assets/css/pages/_masajes.css', array(), '1.0.0', 'all');
+    // Masajes
+    if (is_page('masajes')) {
+        wp_enqueue_style('masajes-css', get_template_directory_uri() . '/assets/css/pages/_masajes.css', array(), '1.0.0');
         wp_enqueue_script('masajes-js', get_template_directory_uri() . '/assets/js/masajes.js', array('jquery'), '1.0.0', true);
     }
-}
-add_action('wp_enqueue_scripts', 'enqueue_masajes_assets');
 
-// =====================================================
-//  Encolar scripts específicos para la página "Reservas"
-// =====================================================
-function enqueue_reservas_assets()
-{
-    if (is_page('reservas')) { // Se ejecuta solo en la página "Reservas"
+    // Reservas
+    if (is_page('reservas')) {
         wp_enqueue_script('reservas-js', get_template_directory_uri() . '/assets/js/reservas.js', array('jquery'), '1.0.0', true);
     }
-}
-add_action('wp_enqueue_scripts', 'enqueue_reservas_assets');
 
-// =====================================================
-//  Encolar scripts específicos para la página "Contacto"
-// =====================================================
-function enqueue_contacto_assets()
-{
-    if (is_page('contacto')) { // Se ejecuta solo en la página "Contacto"
+    // Contacto
+    if (is_page('contacto')) {
         wp_enqueue_script('contacto-js', get_template_directory_uri() . '/assets/js/contacto.js', array('jquery'), '1.0.0', true);
     }
-}
-add_action('wp_enqueue_scripts', 'enqueue_contacto_assets');
 
-// =====================================================
-//  Campos personalizados para productos
-// =====================================================
-function agregar_meta_boxes_producto()
-{
-    add_meta_box(
-        'producto_detalles',
-        'Detalles del Producto',
-        'mostrar_meta_box_producto',
-        'producto',
-        'normal',
-        'high'
-    );
-}
-add_action('add_meta_boxes', 'agregar_meta_boxes_producto');
-
-function mostrar_meta_box_producto($post)
-{
-    wp_nonce_field('guardar_producto_meta', 'producto_meta_nonce');
-
-    $precio = get_post_meta($post->ID, '_producto_precio', true);
-    $icono = get_post_meta($post->ID, '_producto_icono', true);
-    $beneficios = get_post_meta($post->ID, '_producto_beneficios', true);
-
-    echo '<table class="form-table">';
-    echo '<tr>';
-    echo '<th><label for="producto_precio">Precio:</label></th>';
-    echo '<td><input type="text" id="producto_precio" name="producto_precio" value="' . esc_attr($precio) . '" /></td>';
-    echo '</tr>';
-    echo '<tr>';
-    echo '<th><label for="producto_icono">Icono (Font Awesome):</label></th>';
-    echo '<td><input type="text" id="producto_icono" name="producto_icono" value="' . esc_attr($icono) . '" placeholder="ej: leaf, fire, star" /></td>';
-    echo '</tr>';
-    echo '<tr>';
-    echo '<th><label for="producto_beneficios">Beneficios (uno por línea):</label></th>';
-    echo '<td><textarea id="producto_beneficios" name="producto_beneficios" rows="5" cols="50">' . esc_textarea($beneficios) . '</textarea></td>';
-    echo '</tr>';
-    echo '</table>';
-}
-
-function guardar_producto_meta($post_id)
-{
-    if (!isset($_POST['producto_meta_nonce']) || !wp_verify_nonce($_POST['producto_meta_nonce'], 'guardar_producto_meta')) {
-        return;
-    }
-
-    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
-        return;
-    }
-
-    if (!current_user_can('edit_post', $post_id)) {
-        return;
-    }
-
-    if (isset($_POST['producto_precio'])) {
-        update_post_meta($post_id, '_producto_precio', sanitize_text_field($_POST['producto_precio']));
-    }
-
-    if (isset($_POST['producto_icono'])) {
-        update_post_meta($post_id, '_producto_icono', sanitize_text_field($_POST['producto_icono']));
-    }
-
-    if (isset($_POST['producto_beneficios'])) {
-        update_post_meta($post_id, '_producto_beneficios', sanitize_textarea_field($_POST['producto_beneficios']));
+    // Productos
+    if (is_page('nuestros-productos') || is_page('productos')) {
+        wp_enqueue_script('productos-flip', get_template_directory_uri() . '/assets/js/productos.js', array(), '1.0.0', true);
     }
 }
-add_action('save_post', 'guardar_producto_meta');
+add_action('wp_enqueue_scripts', 'menscoretherapy_enqueue_page_scripts');
 
 // =====================================================
-//  Flush rewrite rules al activar el tema
+//  Custom Post Type: Producto
 // =====================================================
-function flush_rewrite_rules_on_activation()
-{
-    registrar_tipos_post_personalizados();
-    flush_rewrite_rules();
-}
-add_action('after_switch_theme', 'flush_rewrite_rules_on_activation');
-
-
-// =====================================================
-// Registrar Custom Post Type: Producto
 function menscoretherapy_register_producto_post_type()
 {
     $labels = array(
-        'name'               => 'Productos',
-        'singular_name'      => 'Producto',
-        'menu_name'          => 'Productos',
-        'add_new'            => 'Añadir Nuevo',
-        'add_new_item'       => 'Añadir Nuevo Producto',
-        'edit_item'          => 'Editar Producto',
-        'new_item'           => 'Nuevo Producto',
-        'view_item'          => 'Ver Producto',
-        'search_items'       => 'Buscar Productos',
-        'not_found'          => 'No se encontraron productos',
-        'not_found_in_trash' => 'No hay productos en la papelera',
+        'name'               => __('Productos', 'menscoretherapy'),
+        'singular_name'      => __('Producto', 'menscoretherapy'),
+        'menu_name'          => __('Productos', 'menscoretherapy'),
+        'add_new'            => __('Añadir Nuevo', 'menscoretherapy'),
+        'add_new_item'       => __('Añadir Nuevo Producto', 'menscoretherapy'),
+        'edit_item'          => __('Editar Producto', 'menscoretherapy'),
+        'new_item'           => __('Nuevo Producto', 'menscoretherapy'),
+        'view_item'          => __('Ver Producto', 'menscoretherapy'),
+        'search_items'       => __('Buscar Productos', 'menscoretherapy'),
+        'not_found'          => __('No se encontraron productos', 'menscoretherapy'),
+        'not_found_in_trash' => __('No hay productos en la papelera', 'menscoretherapy'),
     );
 
     $args = array(
@@ -207,19 +112,22 @@ function menscoretherapy_register_producto_post_type()
         'menu_position'      => 5,
         'menu_icon'          => 'dashicons-cart',
         'supports'           => array('title', 'editor', 'thumbnail', 'excerpt', 'page-attributes'),
+        'show_in_rest'       => true
     );
 
     register_post_type('producto', $args);
 }
 add_action('init', 'menscoretherapy_register_producto_post_type');
 
-// Agregar Meta Boxes para los precios
+// =====================================================
+//  Meta Boxes para Producto
+// =====================================================
 function menscoretherapy_add_producto_meta_boxes()
 {
     add_meta_box(
-        'producto_precios',
-        'Precios del Producto',
-        'menscoretherapy_producto_precios_callback',
+        'producto_detalles',
+        __('Detalles del Producto', 'menscoretherapy'),
+        'menscoretherapy_producto_meta_box_callback',
         'producto',
         'normal',
         'high'
@@ -227,108 +135,124 @@ function menscoretherapy_add_producto_meta_boxes()
 }
 add_action('add_meta_boxes', 'menscoretherapy_add_producto_meta_boxes');
 
-// Callback para mostrar los campos de precios
-function menscoretherapy_producto_precios_callback($post)
+// Callback del meta box
+function menscoretherapy_producto_meta_box_callback($post)
 {
-    wp_nonce_field('menscoretherapy_save_producto_precios', 'menscoretherapy_producto_precios_nonce');
+    wp_nonce_field('menscoretherapy_save_producto_meta', 'producto_meta_nonce');
 
     $precio = get_post_meta($post->ID, '_producto_precio', true);
     $icono = get_post_meta($post->ID, '_producto_icono', true);
     $beneficios = get_post_meta($post->ID, '_producto_beneficios', true);
 ?>
-    <div style="padding: 10px 0;">
-        <p>
-            <label for="producto_precio" style="display: inline-block; width: 180px; font-weight: bold;">
-                Precio (€):
-            </label>
-            <input type="text" id="producto_precio" name="producto_precio"
-                value="<?php echo esc_attr($precio); ?>" style="width: 200px;"
-                placeholder="Ej: 29,99" />
-        </p>
+    <div style="padding: 15px 0;">
+        <table class="form-table">
+            <tr>
+                <th style="width: 200px;">
+                    <label for="producto_precio">
+                        <strong><?php _e('Precio (€):', 'menscoretherapy'); ?></strong>
+                    </label>
+                </th>
+                <td>
+                    <input type="text"
+                        id="producto_precio"
+                        name="producto_precio"
+                        value="<?php echo esc_attr($precio); ?>"
+                        style="width: 200px;"
+                        placeholder="Ej: 29,99" />
+                </td>
+            </tr>
 
-        <p>
-            <label for="producto_icono" style="display: inline-block; width: 180px; font-weight: bold; vertical-align: top;">
-                Icono (Font Awesome):
-            </label>
-            <input type="text" id="producto_icono" name="producto_icono"
-                value="<?php echo esc_attr($icono); ?>" style="width: 300px;"
-                placeholder="Ej: fa-solid fa-droplet" />
-            <br>
-            <span style="margin-left: 185px; font-size: 12px; color: #666;">
-                Visita <a href="https://fontawesome.com/icons" target="_blank">FontAwesome</a> para ver los iconos
-            </span>
-        </p>
+            <tr>
+                <th style="vertical-align: top; padding-top: 10px;">
+                    <label for="producto_icono">
+                        <strong><?php _e('Icono (Font Awesome):', 'menscoretherapy'); ?></strong>
+                    </label>
+                </th>
+                <td>
+                    <input type="text"
+                        id="producto_icono"
+                        name="producto_icono"
+                        value="<?php echo esc_attr($icono); ?>"
+                        style="width: 100%; max-width: 400px;"
+                        placeholder="Ej: fa-solid fa-droplet" />
+                    <p class="description">
+                        <?php _e('Visita', 'menscoretherapy'); ?>
+                        <a href="https://fontawesome.com/icons" target="_blank" rel="noopener">FontAwesome</a>
+                        <?php _e('para ver los iconos disponibles', 'menscoretherapy'); ?>
+                    </p>
+                </td>
+            </tr>
 
-        <p>
-            <label for="producto_beneficios" style="display: inline-block; width: 180px; font-weight: bold; vertical-align: top;">
-                Beneficios:
-            </label>
-            <textarea id="producto_beneficios" name="producto_beneficios"
-                style="width: 400px; height: 150px;"
-                placeholder="Ingresa un beneficio por línea&#10;Ej:&#10;Alivia la tensión muscular&#10;100% natural y orgánico&#10;Hidratación profunda"><?php echo esc_textarea($beneficios); ?></textarea>
-            <br>
-            <span style="margin-left: 185px; font-size: 12px; color: #666;">
-                Escribe un beneficio por línea
-            </span>
-        </p>
+            <tr>
+                <th style="vertical-align: top; padding-top: 10px;">
+                    <label for="producto_beneficios">
+                        <strong><?php _e('Beneficios:', 'menscoretherapy'); ?></strong>
+                    </label>
+                </th>
+                <td>
+                    <textarea id="producto_beneficios"
+                        name="producto_beneficios"
+                        style="width: 100%; max-width: 500px; height: 150px;"
+                        placeholder="<?php esc_attr_e('Ingresa un beneficio por línea', 'menscoretherapy'); ?>&#10;Ej:&#10;Alivia la tensión muscular&#10;100% natural y orgánico&#10;Hidratación profunda"><?php echo esc_textarea($beneficios); ?></textarea>
+                    <p class="description">
+                        <?php _e('Escribe un beneficio por línea. Se mostrarán como lista en la card.', 'menscoretherapy'); ?>
+                    </p>
+                </td>
+            </tr>
+        </table>
 
-        <p style="margin-top: 15px; padding: 10px; background: #f0f0f0; border-left: 4px solid #0073aa;">
-            <strong>Nota:</strong> Estos campos se mostrarán en la parte trasera de la card al hacer hover.
-        </p>
+        <div style="margin-top: 20px; padding: 15px; background: #f0f6fc; border-left: 4px solid #0073aa; border-radius: 4px;">
+            <p style="margin: 0;">
+                <strong>ℹ️ <?php _e('Nota:', 'menscoretherapy'); ?></strong>
+                <?php _e('Estos campos se mostrarán en la parte trasera de la card cuando el usuario haga hover sobre el producto.', 'menscoretherapy'); ?>
+            </p>
+        </div>
     </div>
 <?php
 }
 
-// Guardar los meta datos de precios
-function menscoretherapy_save_producto_precios($post_id)
+// Guardar meta datos del producto
+function menscoretherapy_save_producto_meta($post_id)
 {
-    // Verificar nonce
-    if (!isset($_POST['menscoretherapy_producto_precios_nonce'])) {
-        return;
-    }
-    if (!wp_verify_nonce($_POST['menscoretherapy_producto_precios_nonce'], 'menscoretherapy_save_producto_precios')) {
+    // Verificaciones de seguridad
+    if (!isset($_POST['producto_meta_nonce'])) {
         return;
     }
 
-    // Verificar autosave
+    if (!wp_verify_nonce($_POST['producto_meta_nonce'], 'menscoretherapy_save_producto_meta')) {
+        return;
+    }
+
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
         return;
     }
 
-    // Verificar permisos
     if (!current_user_can('edit_post', $post_id)) {
         return;
     }
 
-    // Guardar los precios
+    // Guardar campos
     $campos = array(
-        'producto_precio',
-        'producto_icono',
-        'producto_beneficios'
+        'producto_precio'     => 'sanitize_text_field',
+        'producto_icono'      => 'sanitize_text_field',
+        'producto_beneficios' => 'sanitize_textarea_field'
     );
 
-    foreach ($campos as $campo) {
+    foreach ($campos as $campo => $sanitize_function) {
         if (isset($_POST[$campo])) {
-            $valor = ($campo === 'producto_beneficios')
-                ? sanitize_textarea_field($_POST[$campo])
-                : sanitize_text_field($_POST[$campo]);
+            $valor = $sanitize_function($_POST[$campo]);
             update_post_meta($post_id, '_' . $campo, $valor);
         }
     }
 }
-add_action('save_post', 'menscoretherapy_save_producto_precios');
+add_action('save_post', 'menscoretherapy_save_producto_meta');
 
-// Enqueue del script de productos (si decides usarlo)
-function menscoretherapy_enqueue_productos_scripts()
+// =====================================================
+//  Flush rewrite rules al activar el tema
+// =====================================================
+function menscoretherapy_flush_rewrite_rules()
 {
-    if (is_page_template('template-parts/nuestros-productos.php') || is_page('nuestros-productos')) {
-        wp_enqueue_script(
-            'productos-flip',
-            get_template_directory_uri() . '/assets/js/productos.js',
-            array(),
-            '1.0.0',
-            true
-        );
-    }
+    menscoretherapy_register_producto_post_type();
+    flush_rewrite_rules();
 }
-add_action('wp_enqueue_scripts', 'menscoretherapy_enqueue_productos_scripts');
+add_action('after_switch_theme', 'menscoretherapy_flush_rewrite_rules');

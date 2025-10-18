@@ -1,81 +1,96 @@
-<!-- Footer con nueva estructura CSS ITCSS -->
+<?php
+
+/**
+ * Footer template
+ * 
+ * @package MensCoreTherapy
+ */
+
+if (!defined('ABSPATH')) exit;
+?>
+
 <footer id="site-footer" class="footer" role="contentinfo">
     <div class="footer__bg" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/fonde-header.webp');"></div>
     <div class="footer__overlay"></div>
 
-    <!-- Contenido principal del footer -->
     <div class="footer__content">
         <div class="footer-container">
-            <div class="footer__inner grid grid--3-cols gap-lg align-center">
+            <div class="footer__inner">
 
                 <!-- Columna 1: Logo -->
                 <div class="footer__logo">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo-sin-fondo.webp"
-                        alt="<?php bloginfo('name'); ?> - Centro de masajes masculinos en Barcelona"
-                        class="footer__logo-img"
-                        width="100"
-                        height="67"
-                        loading="lazy">
+                    <a href="<?php echo esc_url(home_url('/')); ?>" aria-label="<?php bloginfo('name'); ?> - Inicio">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo-sin-fondo.webp"
+                            alt="<?php bloginfo('name'); ?>"
+                            class="footer__logo-img"
+                            width="100"
+                            height="67"
+                            loading="lazy">
+                    </a>
                 </div>
 
-                <!-- Columna 2: Botones de acción -->
-                <div class="footer__actions text-center">
-                    <h4 class="footer__section-title text-white mb-sm">
-                        <?php _e('Reservar', 'menscoretherapy'); ?>
-                    </h4>
-                    <!-- Botón de WhatsApp (justo después del </form> o junto al botón de submit) -->
-                    <div class="whatsapp-reserva-option">
-                        <p>Reserva por Whatsapp</p>
-                        <a
-                            href="https://wa.me/34123456789?text=<?php echo urlencode(
-                                                                        "Hola, quiero reservar desde la web. Mis datos son:\n" .
-                                                                            "- Nombre: [Tu nombre]\n" .
-                                                                            "- Producto: " . (isset($_GET['producto']) ? urldecode($_GET['producto']) : 'No especificado') . "\n" .
-                                                                            "- Día: [Día]\n" .
-                                                                            "- Hora: [Hora]\n" .
-                                                                            "- Email: [Tu email]"
-                                                                    ); ?>"
-                            class="btn-whatsapp-reserva"
-                            target="_blank"
-                            rel="noopener noreferrer">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" />
-                                <path d="M8 10L12 14L16 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                            Reservar por WhatsApp
-                        </a>
-                    </div>
+                <!-- Columna 2: Textos Legales -->
+                <div class="footer__legal">
+                    <h4 class="footer__section-title">Textos Legales - Condiciones de uso y Políticas</h4>
+                    <?php
+                    if (has_nav_menu('legal')) {
+                        wp_nav_menu(array(
+                            'theme_location' => 'legal',
+                            'menu_class'     => 'footer__legal-menu',
+                            'container'      => 'nav',
+                            'container_class' => 'footer__legal-nav',
+                            'depth'          => 1,
+                            'fallback_cb'    => false
+                        ));
+                    } else {
+                        // Fallback si no hay menú asignado
+                        echo '<nav class="footer__legal-nav">';
+                        echo '<ul class="footer__legal-menu">';
+
+                        // Buscar páginas comunes de textos legales
+                        $legal_pages = array(
+                            'aviso-legal',
+                            'politica-de-privacidad',
+                            'politica-de-cookies',
+                            'condiciones-de-uso'
+                        );
+
+                        foreach ($legal_pages as $slug) {
+                            $page = get_page_by_path($slug);
+                            if ($page) {
+                                printf(
+                                    '<li><a href="%s">%s</a></li>',
+                                    esc_url(get_permalink($page->ID)),
+                                    esc_html($page->post_title)
+                                );
+                            }
+                        }
+
+                        echo '</ul>';
+                        echo '</nav>';
+                    }
+                    ?>
                 </div>
 
-                <!-- Columna 3: Información de contactos -->
+                <!-- Columna 3: Información de contacto -->
                 <div class="footer__contact">
-                    <h4 class="footer__section-title text-white mb-sm">
-                        <?php _e('contactos', 'menscoretherapy'); ?>
-                    </h4>
-
-                    <div class="footer__contact-grid grid grid--2-cols gap-md text-sm">
-                        <!-- Columna izquierda -->
-                        <div class="footer__contact-col">
-                            <div class="footer__contact-item flex flex--start gap-xs mb-xs">
-                                <i class="fa fa-phone text-primary"></i>
-                                <span class="text-white">+34 666 777 888</span>
-                            </div>
-                            <div class="footer__contact-item flex flex--start gap-xs">
-                                <i class="fa fa-envelope text-primary"></i>
-                                <span class="text-white">info@masajes.com</span>
-                            </div>
+                    <h4 class="footer__section-title">Contacto</h4>
+                    <div class="footer__contact-grid">
+                        <div class="footer__contact-item">
+                            <i class="fa fa-phone" aria-hidden="true"></i>
+                            <a href="tel:+34666777888">+34 666 777 888</a>
                         </div>
-
-                        <!-- Columna derecha -->
-                        <div class="footer__contact-col">
-                            <div class="footer__contact-item flex flex--start gap-xs mb-xs">
-                                <i class="fa fa-map-marker text-primary"></i>
-                                <span class="text-white">Barcelona, España</span>
-                            </div>
-                            <div class="footer__contact-item flex flex--start gap-xs">
-                                <i class="fa fa-clock-o text-primary"></i>
-                                <span class="text-white">Lun-Dom: 10:00-22:00</span>
-                            </div>
+                        <div class="footer__contact-item">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                            <a href="mailto:info@masajes.com">info@masajes.com</a>
+                        </div>
+                        <div class="footer__contact-item">
+                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                            <span>Barcelona, España</span>
+                        </div>
+                        <div class="footer__contact-item">
+                            <i class="fa fa-clock-o" aria-hidden="true"></i>
+                            <span>Lun-Dom: 10:00-22:00</span>
                         </div>
                     </div>
                 </div>
@@ -87,12 +102,7 @@
     <!-- Copyright -->
     <div class="footer__copyright">
         <div class="footer-container">
-            <div class="text-center text-white text-xs py-sm">
-                <p class="mb-0">
-                    &copy; <?php echo date('Y'); ?> <?php bloginfo('name'); ?>.
-                    <?php _e('Todos los derechos reservados.', 'menscoretherapy'); ?>
-                </p>
-            </div>
+            <p>&copy; <?php echo date('Y'); ?> Men's Core Therapy. Todos los derechos reservados.</p>
         </div>
     </div>
 </footer>
