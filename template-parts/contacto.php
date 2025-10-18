@@ -2,7 +2,7 @@
 
 /**
  * Template part for contacto page content
- * Formulario de contacto y información
+ * Formulario de contacto y información - DYNAMIC VERSION
  */
 ?>
 
@@ -15,43 +15,51 @@
         </header>
 
         <div class="contacto-grid">
-            <!-- Información de contacto -->
+            <!-- Información de contacto - DYNAMIC -->
             <aside class="contacto-info">
                 <h3 class="contacto-info__title">Información de contacto</h3>
 
-                <div class="contacto-item">
-                    <div class="contacto-item__icon">
-                        <i class="fas fa-phone-alt"></i>
-                    </div>
-                    <div class="contacto-item__content">
-                        <h4>¿Tienes dudas? Llámanos</h4>
-                        <p><a href="tel:+34600123456">+34 600 123 456</a></p>
-                    </div>
-                </div>
+                <?php
+                $phone = menscoretherapy_get_contact_info('phone', '+34 600 123 456');
+                $email = menscoretherapy_get_contact_info('email', 'info@masajesmasculinos.com');
+                $hours_detailed = menscoretherapy_get_contact_info('hours_detailed', "Lunes a Viernes: 9:00 - 21:00\nSábados: 10:00 - 18:00\nDomingos: Cerrado");
+                ?>
 
-                <div class="contacto-item">
-                    <div class="contacto-item__icon">
-                        <i class="fas fa-envelope"></i>
+                <?php if ($phone): ?>
+                    <div class="contacto-item">
+                        <div class="contacto-item__icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="contacto-item__content">
+                            <h4>¿Tienes dudas? Llámanos</h4>
+                            <p><a href="tel:<?php echo esc_attr(str_replace(' ', '', $phone)); ?>"><?php echo esc_html($phone); ?></a></p>
+                        </div>
                     </div>
-                    <div class="contacto-item__content">
-                        <h4>Escríbenos</h4>
-                        <p><a href="mailto:info@masajesmasculinos.com">info@masajesmasculinos.com</a></p>
-                    </div>
-                </div>
+                <?php endif; ?>
 
-                <div class="contacto-item">
-                    <div class="contacto-item__icon">
-                        <i class="fas fa-clock"></i>
+                <?php if ($email): ?>
+                    <div class="contacto-item">
+                        <div class="contacto-item__icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contacto-item__content">
+                            <h4>Escríbenos</h4>
+                            <p><a href="mailto:<?php echo esc_attr($email); ?>"><?php echo esc_html($email); ?></a></p>
+                        </div>
                     </div>
-                    <div class="contacto-item__content">
-                        <h4>Horario de Atención</h4>
-                        <p>
-                            Lunes a Viernes: 9:00 - 21:00<br>
-                            Sábados: 10:00 - 18:00<br>
-                            Domingos: Cerrado
-                        </p>
+                <?php endif; ?>
+
+                <?php if ($hours_detailed): ?>
+                    <div class="contacto-item">
+                        <div class="contacto-item__icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contacto-item__content">
+                            <h4>Horario de Atención</h4>
+                            <p><?php echo nl2br(esc_html($hours_detailed)); ?></p>
+                        </div>
                     </div>
-                </div>
+                <?php endif; ?>
             </aside>
 
             <!-- Formulario de contacto -->
@@ -103,20 +111,40 @@
                         <select id="servicio" name="servicio" required>
                             <option value="">Selecciona un servicio...</option>
                             <?php
-                            $servicios = get_posts(array(
-                                'post_type' => 'servicio',
+                            // Obtener masajes del CPT
+                            $masajes = get_posts(array(
+                                'post_type' => 'masaje',
                                 'numberposts' => -1,
                                 'orderby' => 'title',
                                 'order' => 'ASC',
                                 'post_status' => 'publish'
                             ));
 
-                            foreach ($servicios as $servicio) {
+                            foreach ($masajes as $masaje) {
                                 printf(
                                     '<option value="%s">%s</option>',
-                                    esc_attr($servicio->post_title),
-                                    esc_html($servicio->post_title)
+                                    esc_attr($masaje->post_title),
+                                    esc_html($masaje->post_title)
                                 );
+                            }
+
+                            // Fallback: obtener productos si no hay masajes
+                            if (empty($masajes)) {
+                                $productos = get_posts(array(
+                                    'post_type' => 'producto',
+                                    'numberposts' => -1,
+                                    'orderby' => 'title',
+                                    'order' => 'ASC',
+                                    'post_status' => 'publish'
+                                ));
+
+                                foreach ($productos as $producto) {
+                                    printf(
+                                        '<option value="%s">%s</option>',
+                                        esc_attr($producto->post_title),
+                                        esc_html($producto->post_title)
+                                    );
+                                }
                             }
                             ?>
                         </select>

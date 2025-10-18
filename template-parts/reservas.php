@@ -2,7 +2,7 @@
 
 /**
  * Template part for reservas page content
- * Sistema de reservas con formulario
+ * Sistema de reservas con formulario - DYNAMIC VERSION
  */
 ?>
 
@@ -14,9 +14,16 @@
         </header>
 
         <div class="reservas-grid">
-            <!-- Información de reservas -->
+            <!-- Información de reservas - DYNAMIC -->
             <div class="reservas-info">
                 <h3 class="reservas-info__title">Información de Reservas</h3>
+
+                <?php
+                $hours_reservas = menscoretherapy_get_contact_info('hours_reservas', "Lunes a Viernes: 9:00 - 21:00\nSábados: 10:00 - 18:00");
+                $confirmation_time = menscoretherapy_get_contact_info('confirmation_time', 'Te confirmaremos tu cita en menos de 2 horas');
+                $cancellation_policy = menscoretherapy_get_contact_info('cancellation_policy', 'Cancela hasta 24h antes sin costo');
+                $payment_methods = menscoretherapy_get_contact_info('payment_methods', 'Efectivo, tarjeta o transferencia');
+                ?>
 
                 <div class="info-card">
                     <div class="info-card__icon">
@@ -24,7 +31,7 @@
                     </div>
                     <div class="info-card__content">
                         <h5>Disponibilidad</h5>
-                        <p>Lunes a Viernes: 9:00 - 21:00<br>Sábados: 10:00 - 18:00</p>
+                        <p><?php echo nl2br(esc_html($hours_reservas)); ?></p>
                     </div>
                 </div>
 
@@ -34,7 +41,7 @@
                     </div>
                     <div class="info-card__content">
                         <h5>Confirmación</h5>
-                        <p>Te confirmaremos tu cita en menos de 2 horas</p>
+                        <p><?php echo esc_html($confirmation_time); ?></p>
                     </div>
                 </div>
 
@@ -44,7 +51,7 @@
                     </div>
                     <div class="info-card__content">
                         <h5>Política de Cancelación</h5>
-                        <p>Cancela hasta 24h antes sin costo</p>
+                        <p><?php echo esc_html($cancellation_policy); ?></p>
                     </div>
                 </div>
 
@@ -54,7 +61,7 @@
                     </div>
                     <div class="info-card__content">
                         <h5>Formas de Pago</h5>
-                        <p>Efectivo, tarjeta o transferencia</p>
+                        <p><?php echo esc_html($payment_methods); ?></p>
                     </div>
                 </div>
             </div>
@@ -86,21 +93,39 @@
                         <select id="servicio" name="servicio" required>
                             <option value="">Seleccionar servicio...</option>
                             <?php
-                            $servicios = get_posts(array(
-                                'post_type' => 'servicio',
+                            // Obtener masajes del CPT
+                            $masajes = get_posts(array(
+                                'post_type' => 'masaje',
                                 'numberposts' => -1,
-                                'post_status' => 'publish'
+                                'post_status' => 'publish',
+                                'orderby' => 'title',
+                                'order' => 'ASC'
                             ));
-                            foreach ($servicios as $servicio) {
-                                $precio = get_post_meta($servicio->ID, '_servicio_precio', true);
-                                $duracion = get_post_meta($servicio->ID, '_servicio_duracion', true);
+
+                            foreach ($masajes as $masaje) {
+                                $precio = get_post_meta($masaje->ID, '_masaje_precio', true);
+                                $duracion = get_post_meta($masaje->ID, '_masaje_duracion', true);
                                 $info_extra = '';
                                 if ($precio || $duracion) {
                                     $info_extra = ' - ';
                                     if ($precio) $info_extra .= $precio;
                                     if ($duracion) $info_extra .= ' (' . $duracion . ')';
                                 }
-                                echo '<option value="' . esc_attr($servicio->post_title) . '">' . esc_html($servicio->post_title) . $info_extra . '</option>';
+                                echo '<option value="' . esc_attr($masaje->post_title) . '">' . esc_html($masaje->post_title) . $info_extra . '</option>';
+                            }
+
+                            // Fallback: obtener productos si no hay masajes
+                            if (empty($masajes)) {
+                                $productos = get_posts(array(
+                                    'post_type' => 'producto',
+                                    'numberposts' => -1,
+                                    'post_status' => 'publish'
+                                ));
+                                foreach ($productos as $producto) {
+                                    $precio = get_post_meta($producto->ID, '_producto_precio', true);
+                                    $info_extra = $precio ? ' - ' . $precio : '';
+                                    echo '<option value="' . esc_attr($producto->post_title) . '">' . esc_html($producto->post_title) . $info_extra . '</option>';
+                                }
                             }
                             ?>
                         </select>
@@ -149,7 +174,7 @@
                         <label class="checkbox-label">
                             <input type="checkbox" id="privacidad" name="privacidad" required>
                             <span class="checkmark"></span>
-                            Acepto la <a href="/politica-privacidad/" target="_blank">política de privacidad</a> *
+                            Acepto la <a href="<?php echo esc_url(get_privacy_policy_url()); ?>" target="_blank">política de privacidad</a> *
                         </label>
                     </div>
 
@@ -172,6 +197,22 @@
         const form = document.getElementById('reservasForm');
 
         if (form) {
+            // Preseleccionar servicio si viene de la URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const masajeParam = urlParams.get('masaje');
+            if (masajeParam) {
+                const servicioSelect = form.querySelector('#servicio');
+                if (servicioSelect) {
+                    // Buscar la opción que coincida
+                    for (let option of servicioSelect.options) {
+                        if (option.value === masajeParam) {
+                            option.selected = true;
+                            break;
+                        }
+                    }
+                }
+            }
+
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
 
