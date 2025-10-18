@@ -91,50 +91,5 @@ get_header();
   </section>
 </main>
 
-<script>
-  // Función para reservar masajes
-  function reservarMasaje(nombreMasaje) {
-    // Redirigir a la página de reservas con el masaje seleccionado
-    window.location.href = '<?php echo esc_url(home_url('/reservas/')); ?>?masaje=' + encodeURIComponent(nombreMasaje);
-  }
-
-  // Animación de entrada para las cards
-  function animateCardsOnScroll() {
-    const cards = document.querySelectorAll('.card-flip');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, index) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => {
-            entry.target.classList.add('animate-in');
-          }, index * 100);
-        }
-      });
-    }, {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    });
-
-    cards.forEach(card => {
-      observer.observe(card);
-    });
-  }
-
-  // Inicializar animaciones cuando el DOM esté listo
-  document.addEventListener('DOMContentLoaded', function() {
-    animateCardsOnScroll();
-
-    // Añadir efecto de parallax suave
-    const cards = document.querySelectorAll('.card-flip');
-    cards.forEach(card => {
-      card.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-5px)';
-      });
-
-      card.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0)';
-      });
-    });
-  });
-</script>
 
 <?php get_footer(); ?>

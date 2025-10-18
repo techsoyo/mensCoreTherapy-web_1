@@ -91,44 +91,25 @@
                     <div class="form-group">
                         <label for="servicio">Servicio *</label>
                         <select id="servicio" name="servicio" required>
-                            <option value="">Seleccionar servicio...</option>
+                            <option value="">Seleccionar servicio…</option>
+
                             <?php
-                            // Obtener masajes del CPT
-                            $masajes = get_posts(array(
-                                'post_type' => 'masaje',
-                                'numberposts' => -1,
-                                'post_status' => 'publish',
-                                'orderby' => 'title',
-                                'order' => 'ASC'
-                            ));
+                            /* ----- Leer masajes desde la página “Masajes” (ID 56) ----- */
+                            $page_id = 56; // ID real de la página “Masajes”
+                            for ($i = 1; $i <= 20; $i++) {
+                                $nombre   = get_post_meta($page_id, "masaje_{$i}_nombre",   true);
+                                $precio   = get_post_meta($page_id, "masaje_{$i}_precio",   true);
+                                $duracion = get_post_meta($page_id, "masaje_{$i}_duracion", true);
 
-                            foreach ($masajes as $masaje) {
-                                $precio = get_post_meta($masaje->ID, '_masaje_precio', true);
-                                $duracion = get_post_meta($masaje->ID, '_masaje_duracion', true);
-                                $info_extra = '';
-                                if ($precio || $duracion) {
-                                    $info_extra = ' - ';
-                                    if ($precio) $info_extra .= $precio;
-                                    if ($duracion) $info_extra .= ' (' . $duracion . ')';
-                                }
-                                echo '<option value="' . esc_attr($masaje->post_title) . '">' . esc_html($masaje->post_title) . $info_extra . '</option>';
-                            }
-
-                            // Fallback: obtener productos si no hay masajes
-                            if (empty($masajes)) {
-                                $productos = get_posts(array(
-                                    'post_type' => 'producto',
-                                    'numberposts' => -1,
-                                    'post_status' => 'publish'
-                                ));
-                                foreach ($productos as $producto) {
-                                    $precio = get_post_meta($producto->ID, '_producto_precio', true);
-                                    $info_extra = $precio ? ' - ' . $precio : '';
-                                    echo '<option value="' . esc_attr($producto->post_title) . '">' . esc_html($producto->post_title) . $info_extra . '</option>';
+                                if ($nombre) {
+                                    $info = trim(($precio ?: '') . ' ' . ($duracion ? "($duracion)" : ''));
+                                    echo '<option value="' . esc_attr($nombre) . '">' . esc_html($nombre . ' ' . $info) . '</option>';
                                 }
                             }
                             ?>
                         </select>
+
+
                     </div>
 
                     <div class="form-row">
@@ -140,19 +121,13 @@
                         <div class="form-group">
                             <label for="hora">Hora Preferida *</label>
                             <select id="hora" name="hora" required>
-                                <option value="">Seleccionar hora...</option>
-                                <option value="09:00">09:00</option>
-                                <option value="10:00">10:00</option>
-                                <option value="11:00">11:00</option>
-                                <option value="12:00">12:00</option>
-                                <option value="13:00">13:00</option>
-                                <option value="14:00">14:00</option>
-                                <option value="15:00">15:00</option>
-                                <option value="16:00">16:00</option>
-                                <option value="17:00">17:00</option>
-                                <option value="18:00">18:00</option>
-                                <option value="19:00">19:00</option>
-                                <option value="20:00">20:00</option>
+                                <option value="">Seleccionar hora…</option>
+                                <?php
+                                $horas = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'];
+                                foreach ($horas as $h) {
+                                    echo '<option value="' . $h . '">' . $h . '</option>';
+                                }
+                                ?>
                             </select>
                         </div>
                     </div>
@@ -191,52 +166,3 @@
         </div>
     </div>
 </section>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const form = document.getElementById('reservasForm');
-
-        if (form) {
-            // Preseleccionar servicio si viene de la URL
-            const urlParams = new URLSearchParams(window.location.search);
-            const masajeParam = urlParams.get('masaje');
-            if (masajeParam) {
-                const servicioSelect = form.querySelector('#servicio');
-                if (servicioSelect) {
-                    // Buscar la opción que coincida
-                    for (let option of servicioSelect.options) {
-                        if (option.value === masajeParam) {
-                            option.selected = true;
-                            break;
-                        }
-                    }
-                }
-            }
-
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-
-                // Validar que todos los campos requeridos estén llenos
-                const requiredFields = form.querySelectorAll('[required]');
-                let isValid = true;
-
-                requiredFields.forEach(field => {
-                    if (!field.value.trim()) {
-                        isValid = false;
-                        field.style.borderColor = '#e74c3c';
-                    } else {
-                        field.style.borderColor = '#e9ecef';
-                    }
-                });
-
-                if (isValid) {
-                    // Aquí se puede agregar la lógica para enviar la reserva
-                    alert('¡Solicitud de reserva enviada! Te contactaremos pronto para confirmar tu cita.');
-                    form.reset();
-                } else {
-                    alert('Por favor, completa todos los campos obligatorios.');
-                }
-            });
-        }
-    });
-</script>

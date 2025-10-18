@@ -7,6 +7,7 @@
  * /reservas/   → template-parts/reservas.php
  * /contactos/  → template-parts/contactos.php
  * /masajes/    → template-parts/masajes.php
+ * /aviso-legal/ → template-parts/legal-page.php
  */
 
 get_header(); ?>
@@ -28,7 +29,12 @@ get_header(); ?>
             'productos'  => 'nuestros-productos',
             'contacto'  => 'contacto',
             'reservas'   => 'reservas',
-            'masajes'    => 'masajes' // añadido para tu nueva página
+            'masajes'    => 'masajes',
+            'aviso-legal'             => 'legal-page',
+            'politica-de-privacidad'  => 'legal-page',
+            'politica-de-cookies'     => 'legal-page',
+            'condiciones-de-uso'      => 'legal-page',
+
         );
 
         // Determinar el nombre del template

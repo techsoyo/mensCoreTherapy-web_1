@@ -85,14 +85,14 @@ if (!defined('ABSPATH')) exit;
                     <?php if ($phone): ?>
                         <div class="footer__contact-item">
                             <i class="fa fa-phone" aria-hidden="true"></i>
-                            <a href="tel:<?php echo esc_attr(str_replace(' ', '', $phone)); ?>"><?php echo esc_html($phone); ?></a>
+                            <span><?php echo esc_attr(str_replace(' ', '', $phone)); ?></span><span><?php echo esc_html($phone); ?></span>
                         </div>
                     <?php endif; ?>
 
                     <?php if ($email): ?>
                         <div class="footer__contact-item">
                             <i class="fa fa-envelope" aria-hidden="true"></i>
-                            <a href="mailto:<?php echo esc_attr($email); ?>"><?php echo esc_html($email); ?></a>
+                            <span><?php echo esc_attr($email); ?></span><span><?php echo esc_html($email); ?></span>
                         </div>
                     <?php endif; ?>
 

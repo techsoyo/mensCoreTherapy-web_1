@@ -13,3 +13,11 @@
 
 /* Utilities */
 @import url('utilities/_utilities.css');
+
+@media (min-width: 48em) {
+
+  /* 48em = 768px, ajusta si tu breakpoint es otro */
+  .mobile-only {
+    display: none !important;
+  }
+}
