@@ -1,5 +1,5 @@
 /* ==========================================
-   PRODUCTOS PAGE - ESTILOS COMPLETOS (REDUCIDO 5%)
+   PRODUCTOS PAGE - ESTILOS COMPLETOS (CONVERTIDO A REM)
    ========================================== */
 .productos-section {
     position: relative;
@@ -39,7 +39,8 @@
     color: #ffffff;
     margin-bottom: 0.95rem;
     text-shadow: 0.11875rem 0.11875rem 0.475rem rgba(0, 0, 0, 0.7);
-    letter-spacing: -0.475px;
+    letter-spacing: -0.03rem;
+    /* Convertido de -0.475px a rem */
 }
 
 .productos-header .section-subtitle {
@@ -60,7 +61,7 @@
 }
 
 /* ==========================================
-   FLIP CARD EFFECT (REDUCIDO 5%)
+   FLIP CARD EFFECT (CONVERTIDO A REM)
    ========================================== */
 .flip-card {
     background-color: transparent;
@@ -93,7 +94,8 @@
     backface-visibility: hidden;
     border-radius: 1.1875rem;
     overflow: hidden;
-    box-shadow: 0 0.95rem 38rem rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0.95rem 2.375rem rgba(0, 0, 0, 0.4);
+    /* Convertido de 38rem a 2.375rem para ser más realista */
 }
 
 /* ==========================================
@@ -247,7 +249,8 @@
     color: #ffffff;
     margin: 0 0 0.855rem 0;
     text-transform: uppercase;
-    letter-spacing: 0.95px;
+    letter-spacing: 0.0594rem;
+    /* Convertido de 0.95px a rem */
     text-shadow: 0.095rem 0.095rem 0.285rem rgba(0, 0, 0, 0.5);
     font-family: var(--font-secondary, 'Montserrat Alternates', sans-serif);
     background: rgba(184, 56, 15, 0.7);
@@ -267,7 +270,8 @@
     align-items: flex-start;
     gap: 0.475rem;
     background: rgba(26, 6, 0, 0.6);
-    backdrop-filter: blur(9.5px);
+    backdrop-filter: blur(0.594rem);
+    /* Convertido de 9.5px a rem */
     padding: 0.475rem 0.7125rem;
     border-radius: 0.76rem;
     font-size: 0.7rem;
@@ -297,8 +301,10 @@
 .precio-badge {
     background: rgba(255, 255, 255, 0.95);
     padding: 0.855rem 1.71rem;
-    border-radius: 42.75rem;
-    box-shadow: 0 0.38rem 14.25rem rgba(0, 0, 0, 0.2);
+    border-radius: 2.67rem;
+    /* Convertido de 42.75rem a un valor más realista */
+    box-shadow: 0 0.38rem 0.89rem rgba(0, 0, 0, 0.2);
+    /* Convertido de 14.25rem a un valor más realista */
     display: inline-block;
 }
 
@@ -319,18 +325,22 @@
     color: var(--neo-primary);
     text-decoration: none;
     font-weight: 600;
-    border-radius: 42.75rem;
+    border-radius: 2.67rem;
+    /* Convertido de 42.75rem a un valor más realista */
     transition: all 0.3s ease;
-    box-shadow: 0 0.38rem 14.25rem rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0.38rem 0.89rem rgba(0, 0, 0, 0.2);
+    /* Convertido de 14.25rem a un valor más realista */
     font-size: 0.8075rem;
     text-transform: uppercase;
-    letter-spacing: 0.475px;
+    letter-spacing: 0.0297rem;
+    /* Convertido de 0.475px a rem */
 }
 
 .btn-ver-mas:hover {
     background: #ffffff;
     transform: translateY(-0.19rem);
-    box-shadow: 0 0.57rem 19.95rem rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0.57rem 1.25rem rgba(0, 0, 0, 0.3);
+    /* Convertido de 19.95rem a un valor más realista */
 }
 
 /* ==========================================
@@ -347,14 +357,15 @@
     color: #ffffff;
     background: rgba(0, 0, 0, 0.5);
     padding: 1.9rem;
-    border-radius: 11.4rem;
+    border-radius: 0.71rem;
+    /* Convertido de 11.4rem a un valor más realista */
     display: inline-block;
 }
 
 /* ==========================================
    RESPONSIVE (Media Queries ajustadas)
    ========================================== */
-@media (max-width: 768px) {
+@media (max-width: 48rem) {
     .productos-section {
         padding: 5.7rem 0 2.85rem;
     }
@@ -374,7 +385,8 @@
     }
 
     .flip-card {
-        height: 42.75rem;
+        height: 26.7rem;
+        /* Convertido de 42.75rem a un valor más realista */
     }
 
     .producto-nombre {
@@ -394,7 +406,7 @@
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 30rem) {
     .productos-header .section-title {
         font-size: 1.7575rem;
     }
@@ -404,7 +416,8 @@
     }
 
     .flip-card {
-        height: 40.8rem;
+        height: 25.5rem;
+        /* Convertido de 40.8rem a un valor más realista */
     }
 
     .producto-content {
