@@ -3,7 +3,7 @@
 get_header();
 ?>
 
-<main class="pagina-masajes masajes-container" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/torso.jpg'); background-repeat: no-repeat; background-position: center; background-size: cover; background-attachment: fixed; width: 100%;">
+<main class="pagina-masajes masajes-container" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/torso.webp');">
   <h1 class="titulo-seccion">Nuestros Masajes Terapéuticos</h1>
 
   <div class="masajes-grid">
@@ -34,7 +34,9 @@ get_header();
       if ($masaje['categoria'] == 'especial') {
         $clase_adicional = 'destacado';
       }
-      // Se eliminó la lógica de cards de oferta para aligerar el código
+      if (in_array($masaje['categoria'], array('prenatal', 'hot-stone'))) {
+        $clase_adicional .= ' oferta';
+      }
     ?>
       <div class="card-flip <?php echo $clase_adicional; ?>" data-index="<?php echo $index; ?>">
         <div class="card-inner">

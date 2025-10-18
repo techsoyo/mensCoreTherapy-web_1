@@ -1,5 +1,6 @@
-/* BASE CSS - OPTIMIZED VERSION */
-/* Google Fonts cargados localmente para mejor performance */
+/* ===== BASE STYLES - VARIABLES, RESET Y ESTILOS BASE ===== */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
 
 /* ===== VARIABLES CSS GLOBALES ===== */
 :root {
@@ -36,9 +37,8 @@
   --spacing-xl: 2rem;
 
   /* === TIPOGRAFÍA === */
-  /* OPTIMIZED: Fonts will be loaded locally */
-  --font-primary: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-secondary: 'Montserrat Alternates', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-primary: 'Montserrat', sans-serif;
+  --font-secondary: 'Montserrat Alternates', sans-serif;
   --font-weight-thin: 100;
   --font-weight-light: 200;
   --font-weight-regular: 400;
@@ -62,46 +62,6 @@
   --focus-outline-width: 0.1875rem;
   --focus-outline-offset: 0.125rem;
 }
-
-/* ===== FONT FACES - LOCAL LOADING OPTIMIZED ===== */
-/* Note: Add these font files to /assets/fonts/ directory */
-/*
-@font-face {
-  font-family: 'Montserrat';
-  src: url('../fonts/Montserrat-Regular.woff2') format('woff2'),
-       url('../fonts/Montserrat-Regular.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Montserrat';
-  src: url('../fonts/Montserrat-Medium.woff2') format('woff2'),
-       url('../fonts/Montserrat-Medium.woff') format('woff');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Montserrat';
-  src: url('../fonts/Montserrat-SemiBold.woff2') format('woff2'),
-       url('../fonts/Montserrat-SemiBold.woff') format('woff');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Montserrat Alternates';
-  src: url('../fonts/MontserratAlternates-Regular.woff2') format('woff2'),
-       url('../fonts/MontserratAlternates-Regular.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-*/
 
 /* ===== RESET CSS ===== */
 *,
@@ -167,6 +127,8 @@ a {
 a:hover {
   color: var(--neo-primary-hover);
 }
+
+
 
 /* ===== BUTTONS BASE ===== */
 .btn {

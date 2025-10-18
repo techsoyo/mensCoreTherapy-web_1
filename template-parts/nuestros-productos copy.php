@@ -1,9 +1,8 @@
 <?php
 
 /**
- * Template part for displaying products with flip cards - OPTIMIZED
+ * Template part for displaying products with flip cards
  * This template handles the products section with flip effect
- * OPTIMIZATIONS: Performance improvements for WP_Query
  */
 ?>
 <section class="productos-section">
@@ -15,16 +14,12 @@
         </header>
         <div class="productos-grid">
             <?php
-            // Query para productos - OPTIMIZED for performance
+            // Query para productos
             $args = array(
                 'post_type'      => 'producto',
                 'posts_per_page' => -1,
                 'orderby'        => 'menu_order',
-                'order'          => 'ASC',
-                // OPTIMIZED: Performance improvements
-                'no_found_rows'  => true,
-                'update_post_meta_cache' => false,
-                'update_post_term_cache' => false
+                'order'          => 'ASC'
             );
             $productos_query = new WP_Query($args);
             if ($productos_query->have_posts()) :
@@ -45,7 +40,6 @@
                             <!-- CARA FRONTAL -->
                             <div class="flip-card-front">
                                 <div class="producto-image-wrapper">
-                                    <!-- OPTIMIZED: Added loading="lazy" for performance -->
                                     <img
                                         class="producto-imagen"
                                         src="<?php echo esc_url($imagen_url); ?>"

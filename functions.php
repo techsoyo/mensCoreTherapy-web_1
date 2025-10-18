@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Functions and definitions
+ * Functions and definitions - OPTIMIZED
  * 
  * @package MensCoreTherapy
  */
@@ -28,13 +28,14 @@ function menscoretherapy_theme_setup()
 add_action('after_setup_theme', 'menscoretherapy_theme_setup');
 
 // =====================================================
-//  Enqueue scripts y estilos globales
+//  Enqueue scripts y estilos globales - OPTIMIZED
 // =====================================================
 function menscoretherapy_enqueue_scripts()
 {
     // Estilos globales
     wp_enqueue_style('theme-style', get_stylesheet_uri());
-    wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css', array(), '6.0.0');
+    // OPTIMIZED: Font Awesome local (en lugar de CDN)
+    wp_enqueue_style('font-awesome', get_template_directory_uri() . '/assets/css/font-awesome.min.css', array(), '6.0.0');
     wp_enqueue_style('main-css', get_template_directory_uri() . '/assets/css/_main.css', array(), '1.0.0');
 
     // Estilos específicos de páginas
@@ -78,6 +79,16 @@ function menscoretherapy_enqueue_page_scripts()
     }
 }
 add_action('wp_enqueue_scripts', 'menscoretherapy_enqueue_page_scripts');
+
+// =====================================================
+//  OPTIMIZATION: Preload critical assets
+// =====================================================
+function menscoretherapy_preload_assets()
+{
+    echo '<link rel="preload" href="' . get_template_directory_uri() . '/assets/css/font-awesome.min.css" as="style">' . "\n";
+    echo '<link rel="preload" href="' . get_template_directory_uri() . '/assets/images/logo-sin-fondo.webp" as="image">' . "\n";
+}
+add_action('wp_head', 'menscoretherapy_preload_assets', 1);
 
 // =====================================================
 //  Custom Post Type: Producto
@@ -256,3 +267,40 @@ function menscoretherapy_flush_rewrite_rules()
     flush_rewrite_rules();
 }
 add_action('after_switch_theme', 'menscoretherapy_flush_rewrite_rules');
+
+// =====================================================
+//  OPTIMIZATION: Performance improvements
+// =====================================================
+
+// Optimizar WP_Query para productos (usado en template-parts)
+function menscoretherapy_optimize_productos_query($args)
+{
+    if (isset($args['post_type']) && $args['post_type'] === 'producto') {
+        $args['no_found_rows'] = true;
+        $args['update_post_meta_cache'] = false;
+        $args['update_post_term_cache'] = false;
+    }
+    return $args;
+}
+add_filter('pre_get_posts', function ($query) {
+    if (!is_admin() && $query->is_main_query()) {
+        if ($query->get('post_type') === 'producto') {
+            $query->set('no_found_rows', true);
+            $query->set('update_post_meta_cache', false);
+            $query->set('update_post_term_cache', false);
+        }
+    }
+});
+
+// Añadir lazy loading por defecto a imágenes
+function menscoretherapy_add_lazy_loading($content)
+{
+    if (is_admin()) {
+        return $content;
+    }
+
+    $content = str_replace('<img ', '<img loading="lazy" ', $content);
+    return $content;
+}
+add_filter('the_content', 'menscoretherapy_add_lazy_loading');
+add_filter('post_thumbnail_html', 'menscoretherapy_add_lazy_loading');

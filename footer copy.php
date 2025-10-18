@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Footer template - OPTIMIZED
+ * Footer template
  * 
  * @package MensCoreTherapy
  */
@@ -20,7 +20,6 @@ if (!defined('ABSPATH')) exit;
                 <!-- Columna 1: Logo -->
                 <div class="footer__logo">
                     <a href="<?php echo esc_url(home_url('/')); ?>" aria-label="<?php bloginfo('name'); ?> - Inicio">
-                        <!-- OPTIMIZED: Added loading="lazy" -->
                         <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo-sin-fondo.webp"
                             alt="<?php bloginfo('name'); ?>"
                             class="footer__logo-img"
@@ -73,28 +72,24 @@ if (!defined('ABSPATH')) exit;
                     ?>
                 </div>
 
-                <!-- Columna 3: Información de contacto - OPTIMIZED: Consider making dynamic -->
+                <!-- Columna 3: Información de contacto -->
                 <div class="footer__contact">
                     <h4 class="footer__section-title">Contacto</h4>
                     <div class="footer__contact-grid">
                         <div class="footer__contact-item">
                             <i class="fa fa-phone" aria-hidden="true"></i>
-                            <!-- TODO: Make dynamic via theme options -->
                             <a href="tel:+34666777888">+34 666 777 888</a>
                         </div>
                         <div class="footer__contact-item">
                             <i class="fa fa-envelope" aria-hidden="true"></i>
-                            <!-- TODO: Make dynamic via theme options -->
                             <a href="mailto:info@masajes.com">info@masajes.com</a>
                         </div>
                         <div class="footer__contact-item">
                             <i class="fa fa-map-marker" aria-hidden="true"></i>
-                            <!-- TODO: Make dynamic via theme options -->
                             <span>Barcelona, España</span>
                         </div>
                         <div class="footer__contact-item">
                             <i class="fa fa-clock-o" aria-hidden="true"></i>
-                            <!-- TODO: Make dynamic via theme options -->
                             <span>Lun-Dom: 10:00-22:00</span>
                         </div>
                     </div>
